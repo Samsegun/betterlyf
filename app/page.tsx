@@ -1,101 +1,88 @@
-import Image from "next/image";
+import {
+    CalendarDateRangeIcon,
+    PhoneIcon,
+    UserCircleIcon,
+} from "@heroicons/react/24/solid";
+
+import Header from "./_components/Header";
+
+const userFlow = [
+    {
+        icon: <UserCircleIcon className=' text-primary-blue' />,
+        title: "Find A Doctor",
+        description:
+            "Discover skilled doctors based on specialization and location.",
+    },
+    {
+        icon: <CalendarDateRangeIcon className=' text-primary-blue' />,
+        title: "Book Appoinment",
+        description: "Effortlessly book appointments at your convenience.",
+    },
+    {
+        icon: <UserCircleIcon className=' text-primary-blue' />,
+        title: "Get Services",
+        description:
+            "Receive personalized healthcare services tailored towards your needs.",
+    },
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    return (
+        <div>
+            <Header />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <main className=''>
+                <section className='border border-b-2'>
+                    <h1 className='font-medium text-3xl'>
+                        Book Your Doctor Appointment Online.
+                    </h1>
+
+                    <p className='capitalize'>
+                        A healthier tomorrow starts today. Schedule your
+                        appointment. your wellness, our expertise: set up your
+                        appointment today.
+                    </p>
+
+                    <div>
+                        <button>book an appointment</button>
+                        <button className='flex'>
+                            <PhoneIcon className='h-10 w-10 text-primary-blue' />{" "}
+                            Call now
+                        </button>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 className='capitalize font-medium text-2xl'>
+                        how it works!
+                    </h2>
+
+                    <p>
+                        Discover, book and experiene personalized healthcare
+                        effortlessly with our user-friendly Doctor Appointment
+                        Website.
+                    </p>
+
+                    <div className='flex justify-center'>
+                        <div>
+                            <span
+                                className='flex items-center justify-center p-2 w-20 h-20 md:w-16
+                         md:h-16 rounded-lg shadow-2xl'>
+                                <UserCircleIcon className=' text-primary-blue' />
+                            </span>
+
+                            <h3 className='my-3 text-xl font-medium'>
+                                Find A Doctor
+                            </h3>
+
+                            <p>
+                                Discover skilled doctors based on specialization
+                                and location.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
