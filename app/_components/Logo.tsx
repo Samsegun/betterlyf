@@ -13,9 +13,7 @@ function Logo() {
                 alt='better life'
             />
 
-            <span className='text-xl font-medium text-primary-blue'>
-                BetterLyf
-            </span>
+            <span className='text-xl font-medium text-white'>BetterLyf</span>
         </Link>
     );
 }

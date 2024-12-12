@@ -2,7 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    /* background-color: #0efd06;
-    background-color: #25c504; */
+.bg {
+    background: rgb(27, 43, 71);
+    background: radial-gradient(
+        circle,
+        rgba(27, 43, 71, 1) 0%,
+        rgba(0, 167, 220, 1) 85%,
+        rgba(0, 178, 226, 1) 91%
+    );
+}
+
+@keyframes example {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 50%;
+    }
+}
+
+.fade-in {
+    animation-name: example;
+    animation-duration: 1s;
 }

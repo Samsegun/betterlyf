@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./_styles/globals.css";
+import Header from "./_components/Header";
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
@@ -10,8 +11,11 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-    title: "GreenLyf | Home",
-    description: "Book an appointment an healthcare professional",
+    title: {
+        template: "%s | BetterLyf",
+        default: "Welcome | BetterLyf",
+    },
+    description: "Book an appointment with a healthcare professional",
 };
 
 export default function RootLayout({
@@ -22,8 +26,25 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body
-                className={`${roboto.className} antialiased bg-white text-primary-green`}>
-                {children}
+                className={`${roboto.className} antialiased relative bg text-white
+                 `}>
+                <div className='min-h-screen flex flex-col'>
+                    <Header />
+
+                    <div className='px-6 md:px-8 py-12 flex-1'>
+                        <main className='container mx-auto mt-16 '>
+                            {children}
+                        </main>
+                    </div>
+
+                    <footer>
+                        <p className=' flex items-center mx-auto justify-center gap-2 font-bold'>
+                            <span>&copy; {new Date().getUTCFullYear()}</span>
+
+                            <span>BetterLyf</span>
+                        </p>
+                    </footer>
+                </div>
             </body>
         </html>
     );
