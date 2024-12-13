@@ -1,6 +1,17 @@
 import Filter from "../_components/Filter";
+import { getDBVersion } from "../_db";
 
-function Page() {
+async function Page({
+    searchParams,
+}: {
+    searchParams?: Promise<{ specialists?: string }>;
+}) {
+    // const entries = await searchParams;
+    // // const filter = entries?.specialists ?? "all";
+
+    const { version } = await getDBVersion();
+    console.log(version);
+
     return (
         <div>
             <div className='py-8'>
@@ -24,15 +35,11 @@ function Page() {
                 </section>
 
                 <section className='mt-12'>
-                    <div className='flex justify-end mb-8'>
+                    <div className='flex justify-end mb-10 lg:mb-12'>
                         <Filter />
                     </div>
 
-                    <div>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quae vero, nulla sit deserunt saepe quis fugiat dolor
-                        ipsa. Id, rem.
-                    </div>
+                    <div>Cabinlist</div>
                 </section>
             </div>
         </div>

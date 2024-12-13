@@ -35,7 +35,9 @@ function Filter() {
     }
 
     return (
-        <div className='font-medium tracking-wide border flex'>
+        <div
+            className='font-medium tracking-wide border flex
+         flex-wrap gap-2 p-2 md:gap-4 md:p-4 overflow-x-auto whitespace-nowrap'>
             {filters.map(item => (
                 <Button
                     key={item}
