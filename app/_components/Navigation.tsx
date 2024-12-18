@@ -7,7 +7,7 @@ import ActiveLink from "./ActiveLink";
 
 const links = [
     { href: "/", text: "home" },
-    { href: "/doctors", text: "find a doctor" },
+    { href: "/specialists", text: "find a specialist" },
     { href: "/about", text: "about" },
     { href: "/profile", text: "profile" },
 ];

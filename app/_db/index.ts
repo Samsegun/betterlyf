@@ -1,4 +1,6 @@
 import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { bookingsTable, patientsTable, specialistsTable } from "./schema";
 
 if (!process.env.NEON_DATABASE_URL) {
     throw new Error(
@@ -6,8 +8,8 @@ if (!process.env.NEON_DATABASE_URL) {
     );
 }
 
-export const getDBVersion = async () => {
-    const sql = neon(process.env.NEON_DATABASE_URL!);
-    const response = await sql`SELECT version()`;
-    return { version: response[0].version };
-};
+const sql = neon(process.env.NEON_DATABASE_URL!);
+
+export const db = drizzle(sql, {
+    schema: { specialistsTable, patientsTable, bookingsTable },
+});

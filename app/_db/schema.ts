@@ -12,9 +12,9 @@ import {
 import { sql } from "drizzle-orm";
 
 // Specialists Table
-export const specialists = pgTable("specialists", {
+export const specialistsTable = pgTable("specialists", {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 100 }).notNull(),
+    fullName: varchar("full_name", { length: 100 }).notNull(),
     specialization: varchar("specialization", { length: 50 }).notNull(),
     email: varchar("email", { length: 100 }).notNull().unique(),
     phoneNumber: varchar("phone_number", { length: 20 }),
@@ -29,7 +29,7 @@ export const specialists = pgTable("specialists", {
 });
 
 // Patients Table
-export const patients = pgTable(
+export const patientsTable = pgTable(
     "patients",
     {
         id: serial("id").primaryKey(),
@@ -47,8 +47,7 @@ export const patients = pgTable(
             sql`CURRENT_TIMESTAMP`
         ),
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    patients => [
+    () => [
         {
             tableConstraints: {
                 genderCheck: sql`CHECK (gender IN ('Male', 'Female', 'Other', 'Prefer not to say'))`,
@@ -57,20 +56,20 @@ export const patients = pgTable(
     ]
 );
 
-export const bookings = pgTable(
+export const bookingsTable = pgTable(
     "bookings",
     {
         id: serial("id").primaryKey(),
         patientId: integer("patient_id")
             .notNull()
-            .references(() => patients.id),
+            .references(() => patientsTable.id),
         specialistId: integer("specialist_id")
             .notNull()
-            .references(() => specialists.id),
+            .references(() => specialistsTable.id),
         appointmentDate: date("appointment_date").notNull(),
         timeSlot: time("time_slot").notNull(),
         status: varchar("status", { length: 20 }).notNull(),
-        notes: text("notes"),
+        medicalHistory: text("medical_history"),
         createdAt: timestamp("created_at", { withTimezone: true }).default(
             sql`CURRENT_TIMESTAMP`
         ),

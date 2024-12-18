@@ -1,16 +1,19 @@
 import Filter from "../_components/Filter";
-import { getDBVersion } from "../_db";
+import SpecialistList from "../_components/SpecialistList";
+import { SpecialistFilter } from "../_types";
+// import { db } from "../_db/index";
 
 async function Page({
     searchParams,
 }: {
-    searchParams?: Promise<{ specialists?: string }>;
+    searchParams?: Promise<{ specialists?: SpecialistFilter }>;
 }) {
-    // const entries = await searchParams;
-    // // const filter = entries?.specialists ?? "all";
+    const entries = await searchParams;
+    const filter = entries?.specialists ?? "all";
 
-    const { version } = await getDBVersion();
-    console.log(version);
+    console.log(filter);
+
+    // const datab = await db;
 
     return (
         <div>
@@ -39,7 +42,9 @@ async function Page({
                         <Filter />
                     </div>
 
-                    <div>Cabinlist</div>
+                    <div>
+                        <SpecialistList filter={filter} />
+                    </div>
                 </section>
             </div>
         </div>
