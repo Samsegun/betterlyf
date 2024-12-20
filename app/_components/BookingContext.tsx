@@ -9,15 +9,20 @@ import {
     useState,
 } from "react";
 
+// interface Booking {
+//     range: { from: undefined | string; to: undefined | string };
+//     setRange: Dispatch<
+//         SetStateAction<{
+//             from: undefined | string;
+//             to: undefined | string;
+//         }>
+//     >;
+//     resetRange: () => void;
+// }
 interface Booking {
-    range: { from: undefined | string; to: undefined | string };
-    setRange: Dispatch<
-        SetStateAction<{
-            from: undefined | string;
-            to: undefined | string;
-        }>
-    >;
-    resetRange: () => void;
+    appointmentDay: Date | undefined;
+    setAppointmentDay: Dispatch<SetStateAction<Date | undefined>>;
+    resetAppointmentDay: () => void;
 }
 
 // Define the provider
@@ -27,18 +32,18 @@ interface BookingProviderProps {
 
 const BookingContext = createContext<Booking | undefined>(undefined);
 
-const initialState = { from: undefined, to: undefined };
+const initialState = undefined;
 
 function BookingProvider({ children }: BookingProviderProps) {
-    const [range, setRange] = useState<{
-        from: string | undefined;
-        to: string | undefined;
-    }>(initialState);
+    const [appointmentDay, setAppointmentDay] = useState<Date | undefined>(
+        initialState
+    );
 
-    const resetRange = () => setRange(initialState);
+    const resetAppointmentDay = () => setAppointmentDay(initialState);
 
     return (
-        <BookingContext.Provider value={{ range, setRange, resetRange }}>
+        <BookingContext.Provider
+            value={{ appointmentDay, setAppointmentDay, resetAppointmentDay }}>
             {children}
         </BookingContext.Provider>
     );

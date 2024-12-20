@@ -40,24 +40,19 @@
     }
 }
 
-/* For data picker */
-.rdp {
-    --rdp-cell-size: 32px !important;
-    --rdp-accent-color: #fff !important;
-    --rdp-background-color: #fff !important;
-    margin: 0 !important;
+/* For day picker (starts here) */
+.my-today {
+    color: #222222;
+    font-weight: 800;
 }
 
-/* @keyframes example {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 50%;
-    }
+.my-selected {
+    border-radius: 50%;
+    background-color: #1b2b47;
+    font-size: 1.3rem;
 }
 
-.fade-in {
-    animation-name: example;
-    animation-duration: 1s;
-} */
+.rdp-nav .rdp-chevron {
+    fill: #fff;
+}
+/* For day picker (ends here) */

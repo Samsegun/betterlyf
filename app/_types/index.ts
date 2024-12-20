@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface SpecialistType {
     id: number;
     fullName: string;
@@ -22,3 +24,5 @@ export const specialistTypes = [
 
 // Type for allowed filter types
 export type SpecialistFilter = (typeof specialistTypes)[number];
+
+export type SubmitButtonType = { pendingLabel: string; children: ReactNode };

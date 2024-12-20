@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import {
-    ClerkProvider,
-    SignedIn,
-    SignedOut,
-    SignInButton,
-    UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import "./_styles/globals.css";
 import Header from "./_components/Header";
@@ -37,13 +31,6 @@ export default function RootLayout({
                 <body
                     className={`${roboto.className} antialiased relative bg text-white
                  `}>
-                    <SignedOut>
-                        <SignInButton />
-                    </SignedOut>
-                    <SignedIn>
-                        <UserButton />
-                    </SignedIn>
-
                     <div className='min-h-screen flex flex-col'>
                         <Header />
 

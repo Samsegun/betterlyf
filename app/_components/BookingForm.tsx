@@ -2,24 +2,22 @@
 
 import Link from "next/link";
 
+import { useUser } from "@clerk/nextjs";
 import { differenceInDays } from "date-fns";
 import { useBooking } from "./BookingContext";
 // import { createReservation } from "../_lib/actions";
 // import SubmitButton from "./SubmitButton";
 import { SpecialistType } from "../_types";
+import SubmitButton from "./SubmitButton";
 
 function BookingForm({ specialist }: { specialist: SpecialistType }) {
-    const { range, resetRange } = useBooking();
+    const { user } = useUser();
+    const { appointmentDay } = useBooking();
+    // const { range, resetRange } = useBooking();
 
     // CHANGE
     // const { maxCapacity, regularPrice, discount, id } = specialist;
     const { id } = specialist;
-
-    const startDate = range.from;
-    const endDate = range.to;
-
-    // const numNights = differenceInDays(endDate, startDate);
-    // const cabinPrice = numNights * (regularPrice - discount);
 
     // const bookingData = {
     //     startDate,
@@ -36,19 +34,15 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
             <div className='px-8 lg:px-16 py-2 flex justify-between items-center'>
                 <p>Logged in as</p>
 
-                {/* <div className='flex gap-4 items-center'>
+                <div className='flex gap-4 items-center'>
                     <img
                         // Important to display google profile images
                         referrerPolicy='no-referrer'
                         className='h-8 rounded-full'
-                        src={user.image}
-                        alt={user.name}
+                        src={user?.imageUrl}
+                        alt={user?.username}
                     />
-                    <p>{user.name}</p>
-                </div> */}
-                <div className='flex gap-4 items-center'>
-                    <div className='bg-gray-300 h-8 w-8 rounded-full'></div>
-                    <p>tayo</p>
+                    <p>{user?.fullName}</p>
                 </div>
             </div>
 
@@ -87,25 +81,16 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                 </div>
 
                 <div className='flex justify-end items-center gap-6'>
-                    <button
-                        className='bg-primary-blue px-4 py-3 md:px-8 md:py-4 text-white text-lg font-medium
-             hover:bg-primary-lightBlue transition-all rounded-md hover:cursor-pointer'
-                        disabled>
-                        Submit
-                    </button>
-                </div>
-                {/* 
-                <div className='flex justify-end items-center gap-6'>
-                    {!(startDate && endDate) ? (
-                        <p className='text-primary-300 text-base'>
-                            Start by selecting dates
+                    {!appointmentDay ? (
+                        <p className='text-xl font-medium tracking-wide italic'>
+                            Start by selecting date
                         </p>
                     ) : (
-                        <SubmitButton pendingLabel='Reserving...'>
-                            Reserve now
+                        <SubmitButton pendingLabel='Booking...'>
+                            Book now
                         </SubmitButton>
                     )}
-                </div> */}
+                </div>
             </form>
         </div>
     );

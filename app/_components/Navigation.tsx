@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import ActiveLink from "./ActiveLink";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const links = [
     { href: "/", text: "home" },
@@ -15,6 +16,7 @@ const links = [
 function Navigation() {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathName = usePathname();
+    const { isSignedIn } = useUser();
 
     useEffect(() => {
         setMenuOpen(false);
@@ -35,10 +37,18 @@ function Navigation() {
                 {links.slice(1).map(link => (
                     <li
                         key={link.text}
-                        className='capitalize hover:text-gray-200 transition-colors duration-150'>
+                        className='flex gap-2 capitalize hover:text-gray-200
+                         transition-colors duration-150'>
+                        {isSignedIn && link.text === "profile" ? (
+                            <span>
+                                <UserButton />
+                            </span>
+                        ) : null}
+
                         <ActiveLink
                             href={link.href}
-                            activeClassName='text-[#ffcaa5]'>
+                            activeClassName='text-[#ffcaa5]'
+                            className=''>
                             {link.text}
                         </ActiveLink>
                     </li>

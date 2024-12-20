@@ -1,10 +1,11 @@
 // import { auth } from "../_lib/auth";
 // import { getBookedDatesByCabinId, getSettings } from "../_lib/data-service";
+import { auth } from "@clerk/nextjs/server";
+
 import { SpecialistType } from "../_types";
 import BookingForm from "./BookingForm";
 import DateSelector from "./DateSelector";
-// import LoginMessage from "./LoginMessage";
-// import ReservationForm from "./ReservationForm";
+import LoginMessage from "./LoginMessage";
 
 async function Booking({ specialist }: { specialist: SpecialistType }) {
     // const [settings, bookedDates] = await Promise.all([
@@ -12,24 +13,17 @@ async function Booking({ specialist }: { specialist: SpecialistType }) {
     //     getBookedDatesByCabinId(cabin.id),
     // ]);
 
-    // const session = await auth();
+    const { sessionId } = await auth();
 
     return (
         <div className='mt-5 grid lg:grid-cols-2 min-h-[400px]'>
-            {/* <DateSelector
-                settings={settings}
-                bookedDates={bookedDates}
-                cabin={cabin}
-            /> */}
             <DateSelector specialist={specialist} />
 
-            <BookingForm specialist={specialist} />
-
-            {/* {session?.user ? (
-                <ReservationForm cabin={cabin} user={session.user} />
+            {sessionId ? (
+                <BookingForm specialist={specialist} />
             ) : (
-                <LoginMessage />
-            )} */}
+                <LoginMessage specialistName={specialist.fullName} />
+            )}
         </div>
     );
 }

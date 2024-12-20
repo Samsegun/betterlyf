@@ -1,29 +1,33 @@
 import Link from "next/link";
+import SignIn from "./_components/SignIn";
 
-export default function Home() {
+export default function Page() {
     return (
         <div className='mt-24 lg:mt-48 flex flex-col items-center justify-center'>
-            {/* <Image
-                src={bg}
-                fill
-                placeholder='blur'
-                quality={80}
-                className='object-cover object-top blur-sm 2xl:blur-md z-0'
-                alt='a team of health professionals'
-            /> */}
-
             <section className='relative z-0 text-center'>
-                <h1
-                    className='font-medium text-3xl text-center md:text-6xl
-             text-white mb-5 md:mb-10 tracking-tight leading-9'>
-                    Book Your Doctor <br /> Appointment Online.
-                </h1>
+                <div className='mb-5 md:mb-10'>
+                    <h1
+                        className='font-medium text-4xl text-center md:text-6xl
+             text-white tracking-tight leading-10'>
+                        Welcome to BetterLyf
+                    </h1>
+
+                    <p className='mt-4 mb-8 md:text-xl tracking-wide italic'>
+                        ...book your doctor appoinment online.
+                    </p>
+                </div>
 
                 <button
-                    className='bg-primary-blue px-4 py-3 md:px-8 md:py-6 text-white text-lg font-medium
-             hover:bg-primary-lightBlue transition-all'>
-                    <Link href='/'>Explore Premium Services</Link>
+                    className='w-1/2 bg-primary-blue text-white text-lg lg:text-xl font-medium
+             hover:bg-primary-lightBlue transition-all rounded-lg'>
+                    <Link
+                        href='/specialists'
+                        className='block w-full px-4 py-3 md:px-8 md:py-6'>
+                        Book Now!
+                    </Link>
                 </button>
+
+                <SignIn />
             </section>
         </div>
     );
