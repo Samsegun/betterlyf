@@ -8,6 +8,9 @@ export interface SpecialistType {
     phoneNumber: string;
     profilePictureUrl: string;
     bio: string;
+    price: number;
+    location: string;
+    expertiseYears: number;
     createdAt: string;
     updatedAt: string;
 }

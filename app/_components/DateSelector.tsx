@@ -32,7 +32,7 @@ function DateSelector({ specialist }: { specialist: SpecialistType }) {
     };
 
     return (
-        <div className='flex flex-col justify-between'>
+        <div className='flex flex-col justify-around'>
             <DayPicker
                 className='pt-12 place-self-center'
                 mode='single'
@@ -50,26 +50,28 @@ function DateSelector({ specialist }: { specialist: SpecialistType }) {
             />
             {appointmentDay && (
                 <p className='mt-8 text-lg font-medium text-center tracking-wide italic'>
-                    You selected: {format(appointmentDay, "PP")} (
-                    {format(appointmentDay, "EEEE")})
+                    Selected Date:{" "}
+                    {format(appointmentDay, "EEEE, MMMM d, yyyy")}
                 </p>
             )}
 
             <div className='my-4 flex items-center gap-4 justify-center px-8 py-10 h-[72px]'>
                 <div className='flex'>
                     <p className='text-2xl'>
-                        <span className=''>#5000</span>
+                        <span className=''>#{specialist.price}</span>
 
                         <span className=''>/booking</span>
                     </p>
                 </div>
 
-                <button
-                    className='bg-primary-blue px-4 py-3 md:px-8 md:py-4 text-white text-lg font-medium
+                {appointmentDay && (
+                    <button
+                        className='bg-primary-blue px-4 py-3 md:px-8 md:py-4 text-white text-lg font-medium
              hover:bg-primary-lightBlue transition-all rounded-md hover:cursor-pointer'
-                    onClick={resetAppointmentDay}>
-                    Reset
-                </button>
+                        onClick={resetAppointmentDay}>
+                        Reset Date
+                    </button>
+                )}
             </div>
         </div>
     );

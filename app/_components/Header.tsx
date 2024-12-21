@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
 
@@ -9,7 +10,9 @@ function Header() {
             <div className='flex items-center mx-auto justify-between container'>
                 <Logo />
 
-                <Navigation />
+                <Suspense fallback={<div>loading...</div>}>
+                    <Navigation />
+                </Suspense>
             </div>
         </header>
     );

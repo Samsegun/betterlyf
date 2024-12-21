@@ -3,9 +3,8 @@ import { SpecialistType } from "../_types";
 import TextExpander from "./TextExpander";
 import {
     AcademicCapIcon,
-    EnvelopeIcon,
-    // MapPinIcon,
-    UsersIcon,
+    MapPinIcon,
+    StarIcon,
 } from "@heroicons/react/24/solid";
 
 function Specialist({ specialist }: { specialist: SpecialistType }) {
@@ -14,8 +13,8 @@ function Specialist({ specialist }: { specialist: SpecialistType }) {
         fullName,
         bio,
         specialization,
-        phoneNumber,
-        email,
+        location,
+        expertiseYears,
     } = specialist;
 
     return (
@@ -45,14 +44,15 @@ function Specialist({ specialist }: { specialist: SpecialistType }) {
                         </li>
                         <li>
                             <span className='flex md:items-center gap-2 flex-col md:flex-row'>
-                                <EnvelopeIcon className='h-5 w-5' />
-                                <strong>Email:</strong> {email}
+                                <StarIcon className='h-5 w-5' />
+                                <strong>Experience:</strong> {expertiseYears}{" "}
+                                years
                             </span>
                         </li>
                         <li>
                             <span className='flex md:items-center gap-2 flex-col md:flex-row capitalize'>
-                                <UsersIcon className='h-5 w-5' />
-                                <strong>Phone:</strong> {phoneNumber}
+                                <MapPinIcon className='h-5 w-5' />
+                                <strong>Location:</strong> {location}
                             </span>
                         </li>
                         <li className='text-md italic'>

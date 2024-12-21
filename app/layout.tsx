@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+// import { Roboto } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import "./_styles/globals.css";
 import Header from "./_components/Header";
 
-const roboto = Roboto({
-    weight: ["400", "500", "700"],
-    style: ["normal", "italic"],
-    subsets: ["latin"],
-    display: "swap",
-});
+// const roboto = Roboto({
+//     weight: ["400", "500", "700"],
+//     style: ["normal", "italic"],
+//     subsets: ["latin"],
+//     display: "swap",
+// });
 
 export const metadata: Metadata = {
     title: {
@@ -29,7 +29,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang='en'>
                 <body
-                    className={`${roboto.className} antialiased relative bg text-white
+                    className={` antialiased relative bg text-white
                  `}>
                     <div className='min-h-screen flex flex-col'>
                         <Header />

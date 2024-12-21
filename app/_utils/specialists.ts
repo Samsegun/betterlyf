@@ -1,9 +1,9 @@
-import { Specialist, SpecialistFilter } from "../_types";
+import { SpecialistType, SpecialistFilter } from "../_types";
 
 export function filterSpecialists(
     filter: SpecialistFilter,
-    mockSpecialists: Specialist[]
-): Specialist[] {
+    mockSpecialists: SpecialistType[]
+): SpecialistType[] {
     switch (filter.toLowerCase()) {
         case "all":
             return mockSpecialists;

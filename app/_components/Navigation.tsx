@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import ActiveLink from "./ActiveLink";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import SignIn from "./SignIn";
 
 const links = [
     { href: "/", text: "home" },
@@ -12,6 +14,13 @@ const links = [
     { href: "/about", text: "about" },
     { href: "/profile", text: "profile" },
 ];
+
+const UserButton = dynamic(
+    () => import("@clerk/nextjs").then(mod => mod.UserButton),
+    {
+        ssr: false,
+    }
+);
 
 function Navigation() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -33,26 +42,42 @@ function Navigation() {
             </button>
 
             {/* desktop menu */}
-            <ul className='hidden md:flex gap-16'>
-                {links.slice(1).map(link => (
-                    <li
-                        key={link.text}
-                        className='flex gap-2 capitalize hover:text-gray-200
-                         transition-colors duration-150'>
-                        {isSignedIn && link.text === "profile" ? (
-                            <span>
-                                <UserButton />
-                            </span>
-                        ) : null}
+            <ul className='hidden md:flex items-center gap-16'>
+                {links.slice(1).map(link => {
+                    const isProfileLink = link.text === "profile";
 
-                        <ActiveLink
-                            href={link.href}
-                            activeClassName='text-[#ffcaa5]'
-                            className=''>
-                            {link.text}
-                        </ActiveLink>
-                    </li>
-                ))}
+                    return (
+                        <li
+                            key={link.text}
+                            className='flex items-center gap-2 capitalize hover:text-gray-200
+                         transition-colors duration-150'>
+                            {isProfileLink ? (
+                                isSignedIn ? (
+                                    <>
+                                        <span className='flex'>
+                                            <UserButton />
+                                        </span>
+                                        <ActiveLink
+                                            href={link.href}
+                                            activeClassName='text-[#ffcaa5]'
+                                            className=''>
+                                            {link.text}
+                                        </ActiveLink>
+                                    </>
+                                ) : (
+                                    <SignIn styles='py-2 px-4 lg:py-4 lg:px-8' />
+                                )
+                            ) : (
+                                <ActiveLink
+                                    href={link.href}
+                                    activeClassName='text-[#ffcaa5]'
+                                    className=''>
+                                    {link.text}
+                                </ActiveLink>
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
 
             {menuOpen && (

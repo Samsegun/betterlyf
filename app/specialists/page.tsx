@@ -11,8 +11,6 @@ async function Page({
     const entries = await searchParams;
     const filter = entries?.specialists ?? "all";
 
-    console.log(filter);
-
     // const datab = await db;
 
     return (

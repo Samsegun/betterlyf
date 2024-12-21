@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SignIn from "./_components/SignIn";
 
 export default function Page() {
     return (
@@ -26,8 +25,6 @@ export default function Page() {
                         Book Now!
                     </Link>
                 </button>
-
-                <SignIn />
             </section>
         </div>
     );

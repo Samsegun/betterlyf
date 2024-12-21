@@ -8,6 +8,7 @@ import {
     time,
     integer,
     unique,
+    numeric,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -20,6 +21,9 @@ export const specialistsTable = pgTable("specialists", {
     phoneNumber: varchar("phone_number", { length: 20 }),
     profilePictureUrl: text("profile_picture_url"),
     bio: text("bio"),
+    price: numeric("price", { precision: 10, scale: 2 }).notNull(), // Price for consultation
+    location: varchar("location", { length: 150 }), // Specialist's location (city, state, or country)
+    expertiseYears: integer("expertise_years").default(0),
     createdAt: timestamp("created_at", { withTimezone: true }).default(
         sql`CURRENT_TIMESTAMP`
     ),
@@ -66,10 +70,11 @@ export const bookingsTable = pgTable(
         specialistId: integer("specialist_id")
             .notNull()
             .references(() => specialistsTable.id),
+        fullName: varchar("full_name", { length: 255 }).notNull(),
         appointmentDate: date("appointment_date").notNull(),
         timeSlot: time("time_slot").notNull(),
         status: varchar("status", { length: 20 }).notNull(),
-        medicalHistory: text("medical_history"),
+        purposeOfVisit: varchar("purpose_of_visit", { length: 255 }),
         createdAt: timestamp("created_at", { withTimezone: true }).default(
             sql`CURRENT_TIMESTAMP`
         ),
