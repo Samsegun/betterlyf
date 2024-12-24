@@ -1,5 +1,5 @@
 import { SpecialistFilter } from "../_types";
-import { filterSpecialists } from "../_utils/specialists";
+import { filterSpecialists } from "../_utils/helpers";
 import SpecialistCard from "./SpecialistCard";
 
 export const mockSpecialists = [

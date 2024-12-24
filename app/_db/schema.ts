@@ -36,14 +36,12 @@ export const specialistsTable = pgTable("specialists", {
 export const patientsTable = pgTable(
     "patients",
     {
-        id: serial("id").primaryKey(),
+        id: varchar("id", { length: 50 }).primaryKey(), // Clerk's user.id
         fullName: varchar("full_name", { length: 255 }).notNull(),
         email: varchar("email", { length: 100 }).notNull().unique(),
         phoneNumber: varchar("phone_number", { length: 20 }),
         dateOfBirth: date("date_of_birth"),
         gender: varchar("gender", { length: 10 }),
-        address: text("address"),
-        medicalHistory: text("medical_history"),
         createdAt: timestamp("created_at", { withTimezone: true }).default(
             sql`CURRENT_TIMESTAMP`
         ),
@@ -54,7 +52,7 @@ export const patientsTable = pgTable(
     () => [
         {
             tableConstraints: {
-                genderCheck: sql`CHECK (gender IN ('Male', 'Female', 'Other', 'Prefer not to say'))`,
+                genderCheck: sql`CHECK (gender IN ('male', 'female', 'other'))`,
             },
         },
     ]
@@ -73,6 +71,7 @@ export const bookingsTable = pgTable(
         fullName: varchar("full_name", { length: 255 }).notNull(),
         appointmentDate: date("appointment_date").notNull(),
         timeSlot: time("time_slot").notNull(),
+        phoneNumber: varchar("phone_number", { length: 20 }).notNull(),
         status: varchar("status", { length: 20 }).notNull(),
         purposeOfVisit: varchar("purpose_of_visit", { length: 255 }),
         createdAt: timestamp("created_at", { withTimezone: true }).default(

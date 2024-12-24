@@ -1,5 +1,19 @@
 import { ReactNode } from "react";
 
+export interface BookingData {
+    patientId: number | string | undefined;
+    specialistId: number;
+    email: string | undefined;
+    appointmentDate: Date | undefined;
+}
+
+export interface PatientData {
+    patientId: string;
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+}
+
 export interface SpecialistType {
     id: number;
     fullName: string;

@@ -15,21 +15,14 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
     const { user } = useUser();
     const { appointmentDay, resetAppointmentDay } = useBooking();
 
-    // CHANGE
-    // const { maxCapacity, regularPrice, discount, id } = specialist;
-    // const { id } = specialist;
+    const bookingData = {
+        patientId: user?.id, // userId comes from Clerk
+        specialistId: specialist.id, // Pass the ID of the selected specialist
+        email: user?.emailAddresses[0].emailAddress,
+        appointmentDate: appointmentDay,
+    };
 
-    // const bookingData = {
-    // patientId: id,
-
-    //     startDate,
-    //     endDate,
-    //     numNights,
-    //     cabinPrice,
-    //     cabinId: id,
-    // };
-
-    // const createBookingWithData = createReservation.bind(null, bookingData);
+    const createBookingWithData = createBooking.bind(null, bookingData);
 
     return (
         <div className='border-t-2 mt-8 lg:mt-0 lg:border-t-0 grid scale-[1.01]'>
@@ -49,12 +42,8 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
             </div>
 
             <form
-                // action={async formData => {
-                //     await createBookingWithData(formData);
-                //     resetRange();
-                // }}
                 action={async formData => {
-                    await createBooking(formData);
+                    await createBookingWithData(formData);
                     resetAppointmentDay();
                 }}
                 className='py-10 px-8 lg:px-16 text-lg flex gap-5 flex-col'>
@@ -74,21 +63,12 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                     <input
                         name='email'
                         id='email'
+                        type='email'
                         className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
                         required
                         defaultValue={
                             user?.emailAddresses[0].emailAddress || ""
                         }
-                    />
-                </div>
-
-                <div className='space-y-2'>
-                    <label htmlFor='phoneNumber'>Phone Number</label>
-                    <input
-                        name='phoneNumber'
-                        id='phoneNumber'
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
-                        placeholder='Optional'
                     />
                 </div>
 
@@ -102,12 +82,34 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                         <option value='' key=''>
                             Select time slot...
                         </option>
-                        {Array.from({ length: 9 }, (_, i) => i + 9).map(x => (
-                            <option value={x} key={x}>
-                                {x <= 12 ? x : x - 12} {x <= 11 ? "AM" : "PM"}
-                            </option>
-                        ))}
+                        {Array.from({ length: 9 }, (_, i) => i + 9).map(
+                            hour => {
+                                const time24Hour = `${String(hour).padStart(
+                                    2,
+                                    "0"
+                                )}:00:00`; // e.g., "09:00:00", "15:00:00"
+                                const displayTime = `${
+                                    hour <= 12 ? hour : hour - 12
+                                } ${hour < 12 ? "AM" : "PM"}`;
+                                return (
+                                    <option value={time24Hour} key={hour}>
+                                        {displayTime}
+                                    </option>
+                                );
+                            }
+                        )}
                     </select>
+                </div>
+
+                <div className='space-y-2'>
+                    <label htmlFor='phoneNumber'>Phone Number</label>
+                    <input
+                        name='phoneNumber'
+                        id='phoneNumber'
+                        required
+                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
+                        placeholder='Enter phone number'
+                    />
                 </div>
 
                 <div className='space-y-2'>
