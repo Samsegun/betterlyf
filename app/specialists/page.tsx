@@ -1,5 +1,6 @@
 import Filter from "../_components/Filter";
 import SpecialistList from "../_components/SpecialistList";
+// import { getSpecialists } from "../_lib/data-service";
 import { SpecialistFilter } from "../_types";
 // import { db } from "../_db/index";
 
@@ -11,7 +12,9 @@ async function Page({
     const entries = await searchParams;
     const filter = entries?.specialists ?? "all";
 
-    // const datab = await db;
+    // const specialists = await getSpecialists();
+
+    // console.log(specialists);
 
     return (
         <div>
@@ -40,9 +43,7 @@ async function Page({
                         <Filter />
                     </div>
 
-                    <div>
-                        <SpecialistList filter={filter} />
-                    </div>
+                    <SpecialistList filter={filter} />
                 </section>
             </div>
         </div>

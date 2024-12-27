@@ -21,15 +21,11 @@ export const specialistsTable = pgTable("specialists", {
     phoneNumber: varchar("phone_number", { length: 20 }),
     profilePictureUrl: text("profile_picture_url"),
     bio: text("bio"),
-    price: numeric("price", { precision: 10, scale: 2 }).notNull(), // Price for consultation
-    location: varchar("location", { length: 150 }), // Specialist's location (city, state, or country)
+    price: numeric("price", { precision: 10, scale: 2 }).notNull(),
+    location: varchar("location", { length: 150 }),
     expertiseYears: integer("expertise_years").default(0),
-    createdAt: timestamp("created_at", { withTimezone: true }).default(
-        sql`CURRENT_TIMESTAMP`
-    ),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).default(
-        sql`CURRENT_TIMESTAMP`
-    ),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 // Patients Table
@@ -42,12 +38,8 @@ export const patientsTable = pgTable(
         phoneNumber: varchar("phone_number", { length: 20 }),
         dateOfBirth: date("date_of_birth"),
         gender: varchar("gender", { length: 10 }),
-        createdAt: timestamp("created_at", { withTimezone: true }).default(
-            sql`CURRENT_TIMESTAMP`
-        ),
-        updatedAt: timestamp("updated_at", { withTimezone: true }).default(
-            sql`CURRENT_TIMESTAMP`
-        ),
+        createdAt: timestamp("created_at").notNull().defaultNow(),
+        updatedAt: timestamp("updated_at").notNull().defaultNow(),
     },
     () => [
         {
@@ -62,7 +54,7 @@ export const bookingsTable = pgTable(
     "bookings",
     {
         id: serial("id").primaryKey(),
-        patientId: integer("patient_id")
+        patientId: varchar("patient_id", { length: 50 })
             .notNull()
             .references(() => patientsTable.id),
         specialistId: integer("specialist_id")
@@ -74,12 +66,8 @@ export const bookingsTable = pgTable(
         phoneNumber: varchar("phone_number", { length: 20 }).notNull(),
         status: varchar("status", { length: 20 }).notNull(),
         purposeOfVisit: varchar("purpose_of_visit", { length: 255 }),
-        createdAt: timestamp("created_at", { withTimezone: true }).default(
-            sql`CURRENT_TIMESTAMP`
-        ),
-        updatedAt: timestamp("updated_at", { withTimezone: true }).default(
-            sql`CURRENT_TIMESTAMP`
-        ),
+        createdAt: timestamp("created_at").notNull().defaultNow(),
+        updatedAt: timestamp("updated_at").notNull().defaultNow(),
     },
     bookings => [
         {
