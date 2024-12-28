@@ -1,12 +1,7 @@
 "use client";
 
-// import Link from "next/link";
-
 import { useUser } from "@clerk/nextjs";
-// import { differenceInDays } from "date-fns";
 import { useBooking } from "./BookingContext";
-// import { createReservation } from "../_lib/actions";
-// import SubmitButton from "./SubmitButton";
 import { SpecialistType } from "../_types";
 import SubmitButton from "./SubmitButton";
 import { createBooking } from "../_lib/actions";

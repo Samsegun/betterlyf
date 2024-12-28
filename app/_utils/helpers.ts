@@ -50,23 +50,20 @@ export function filterSpecialists(
 }
 
 export async function ensurePatientExists(patientData: PatientData) {
-    const { patientId, fullName, email, phoneNumber } = patientData;
+    const { patientId } = patientData;
 
     try {
         // Check if patient already exists
         const existingPatient = await db
             .select()
             .from(patientsTable)
-            .where(eq(patientsTable.id, patientId))
+            .where(eq(patientsTable.userId, patientId))
             .limit(1);
 
         if (existingPatient.length === 0) {
             // Insert patient if not exists
             await db.insert(patientsTable).values({
-                id: patientId, // Clerk's user.id
-                fullName,
-                phoneNumber,
-                email,
+                userId: patientId, // Clerk's user.id
             });
         }
         return existingPatient;

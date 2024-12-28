@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 import "./_styles/globals.css";
 import Header from "./_components/Header";
+import { UserProvider } from "./_components/UserContext";
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
@@ -36,7 +37,7 @@ export default function RootLayout({
 
                         <div className='px-6 md:px-8 py-12 flex-1'>
                             <main className='container mx-auto mt-16 '>
-                                {children}
+                                <UserProvider>{children}</UserProvider>
                             </main>
                         </div>
 

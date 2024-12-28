@@ -14,7 +14,7 @@ export function validatePatientData(formData: {
         ? String(formData.phoneNumber)
         : "";
 
-    // Perform additional validation if needed
+    // additional validation
     if (!patientId || !fullName || !email || !phoneNumber) {
         throw new Error("Missing required fields");
     }

@@ -4,16 +4,9 @@ import { auth } from "@clerk/nextjs/server";
 import { format } from "date-fns";
 import { patientsTable } from "../_db/schema";
 import { db } from "../_db";
-import { validatePatientData } from "../_types/validateData";
+// import { validatePatientData } from "../_types/validateData";
 import { BookingData } from "../_types";
-import { ensurePatientExists } from "../_utils/helpers";
-
-// interface PatientData {
-//     patientId: string | number | undefined;
-//     fullName: FormDataEntryValue | null;
-//     email: string | undefined;
-//     phoneNumber: FormDataEntryValue | null;
-// }
+// import { ensurePatientExists } from "../_utils/helpers";
 
 export async function createBooking(
     bookingData: BookingData,
@@ -33,20 +26,20 @@ export async function createBooking(
         status: "pending", // Initial status
         purposeOfVisit: formData.get("purposeOfVisit"),
     };
+    console.log(newBookingData);
 
     /* booking flow
     -- extract required data from incoming bookingData and call ensurePatientExists function
-     to insert patient record if record does not exists
+     to insert patient(user) record if record does not exists
     */
-    const patientData = validatePatientData({
-        patientId: newBookingData.patientId,
-        fullName: newBookingData.fullName,
-        email: newBookingData.email,
-        phoneNumber: newBookingData.phoneNumber,
-    });
-    const patientExists = await ensurePatientExists(patientData);
-
-    console.log(patientExists);
+    //type-checking
+    // const patientData = validatePatientData({
+    //     patientId: newBookingData.patientId,
+    //     fullName: newBookingData.fullName,
+    //     email: newBookingData.email,
+    //     phoneNumber: newBookingData.phoneNumber,
+    // });
+    // const patientExists = await ensurePatientExists(patientData);
 
     const patients = await db.select().from(patientsTable);
     console.log(patients);

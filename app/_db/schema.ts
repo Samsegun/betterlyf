@@ -12,12 +12,33 @@ import {
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
+export const usersTable = pgTable(
+    "users",
+    {
+        id: varchar("id", { length: 50 }).primaryKey(), // Clerk's user.id
+        fullName: varchar("full_name", { length: 255 }).notNull(),
+        email: varchar("email", { length: 255 }).notNull().unique(),
+        phoneNumber: varchar("phone_number", { length: 20 }),
+        role: varchar("role", { length: 20 }).notNull().default("patient"), // 'patient', 'specialist' or 'admin'
+        lastLoginAt: timestamp("last_login_at"),
+        createdAt: timestamp("created_at").notNull().defaultNow(),
+        updatedAt: timestamp("updated_at").notNull().defaultNow(),
+    },
+    () => [
+        {
+            tableConstraints: {
+                roleCheck: sql`CHECK (role IN ('patient', 'specialist', 'admin'))`,
+            },
+        },
+    ]
+);
+
 // Specialists Table
 export const specialistsTable = pgTable("specialists", {
     id: serial("id").primaryKey(),
     fullName: varchar("full_name", { length: 100 }).notNull(),
     specialization: varchar("specialization", { length: 50 }).notNull(),
-    email: varchar("email", { length: 100 }).notNull().unique(),
+    email: varchar("email", { length: 255 }).notNull().unique(),
     phoneNumber: varchar("phone_number", { length: 20 }),
     profilePictureUrl: text("profile_picture_url"),
     bio: text("bio"),
@@ -32,10 +53,9 @@ export const specialistsTable = pgTable("specialists", {
 export const patientsTable = pgTable(
     "patients",
     {
-        id: varchar("id", { length: 50 }).primaryKey(), // Clerk's user.id
-        fullName: varchar("full_name", { length: 255 }).notNull(),
-        email: varchar("email", { length: 100 }).notNull().unique(),
-        phoneNumber: varchar("phone_number", { length: 20 }),
+        userId: varchar("user_id", { length: 50 })
+            .primaryKey()
+            .references(() => usersTable.id),
         dateOfBirth: date("date_of_birth"),
         gender: varchar("gender", { length: 10 }),
         createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -56,7 +76,7 @@ export const bookingsTable = pgTable(
         id: serial("id").primaryKey(),
         patientId: varchar("patient_id", { length: 50 })
             .notNull()
-            .references(() => patientsTable.id),
+            .references(() => patientsTable.userId),
         specialistId: integer("specialist_id")
             .notNull()
             .references(() => specialistsTable.id),

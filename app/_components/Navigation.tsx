@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import ActiveLink from "./ActiveLink";
-import { useUser } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
 import SignIn from "./SignIn";
 
 const links = [
@@ -25,7 +25,6 @@ const UserButton = dynamic(
 function Navigation() {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathName = usePathname();
-    const { isSignedIn } = useUser();
 
     useEffect(() => {
         setMenuOpen(false);
@@ -52,11 +51,14 @@ function Navigation() {
                             className='flex items-center gap-2 capitalize hover:text-gray-200
                          transition-colors duration-150'>
                             {isProfileLink ? (
-                                isSignedIn ? (
+                                <>
                                     <>
-                                        <span className='flex'>
-                                            <UserButton />
-                                        </span>
+                                        <SignedIn>
+                                            <span className='flex'>
+                                                <UserButton />
+                                            </span>
+                                        </SignedIn>
+
                                         <ActiveLink
                                             href={link.href}
                                             activeClassName='text-[#ffcaa5]'
@@ -64,9 +66,9 @@ function Navigation() {
                                             {link.text}
                                         </ActiveLink>
                                     </>
-                                ) : (
+
                                     <SignIn styles='py-2 px-4 lg:py-4 lg:px-8' />
-                                )
+                                </>
                             ) : (
                                 <ActiveLink
                                     href={link.href}

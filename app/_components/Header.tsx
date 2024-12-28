@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
 
-function Header() {
+async function Header() {
     return (
         <header
             className='fixed top-0 left-0 right-0 z-10 bg-[#24385c]

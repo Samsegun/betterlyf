@@ -1,8 +1,12 @@
+import { Metadata } from "next";
 import Filter from "../_components/Filter";
 import SpecialistList from "../_components/SpecialistList";
-// import { getSpecialists } from "../_lib/data-service";
 import { SpecialistFilter } from "../_types";
-// import { db } from "../_db/index";
+// import { getSpecialists } from "../_lib/data-service";
+
+export const metadata: Metadata = {
+    title: `Find a Specialist`,
+};
 
 async function Page({
     searchParams,
