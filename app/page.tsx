@@ -6,6 +6,7 @@ import { useLoggedInUser } from "./_components/UserContext";
 export default function Page() {
     const { user } = useLoggedInUser();
     const name = user?.fullName ? `, ${user.fullName.split(" ")[0]}` : "";
+    console.log(user);
 
     return (
         <div className='mt-24 lg:mt-48 flex flex-col items-center justify-center'>
@@ -15,7 +16,7 @@ export default function Page() {
                         className='font-medium text-4xl text-center md:text-6xl
              text-white tracking-tight leading-normal'>
                         Welcome to BetterLyf
-                        <span className='capitalize'>{name}</span>
+                        <span className='capitalize'>{name ?? ""}</span>
                     </h1>
 
                     <p className='mt-4 mb-8 md:text-xl tracking-wide italic'>

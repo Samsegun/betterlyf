@@ -1,19 +1,19 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { useBooking } from "./BookingContext";
 import { SpecialistType } from "../_types";
 import SubmitButton from "./SubmitButton";
 import { createBooking } from "../_lib/actions";
+import { useLoggedInUser } from "./UserContext";
 
 function BookingForm({ specialist }: { specialist: SpecialistType }) {
-    const { user } = useUser();
+    const { user } = useLoggedInUser();
     const { appointmentDay, resetAppointmentDay } = useBooking();
 
     const bookingData = {
         patientId: user?.id, // userId comes from Clerk
         specialistId: specialist.id, // Pass the ID of the selected specialist
-        email: user?.emailAddresses[0].emailAddress,
+        email: user?.email,
         appointmentDate: appointmentDay,
     };
 
@@ -21,7 +21,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
 
     return (
         <div className='border-t-2 mt-8 lg:mt-0 lg:border-t-0 grid scale-[1.01]'>
-            <div className='px-8 lg:px-16 py-2 flex justify-between items-center'>
+            <div className='px-8 lg:px-16 py-2 flex flex-wrap gap-2  justify-between items-center'>
                 <p>Logged in as</p>
 
                 <div className='flex gap-4 items-center'>
@@ -30,9 +30,9 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                         referrerPolicy='no-referrer'
                         className='h-8 rounded-full'
                         src={user?.imageUrl ?? undefined}
-                        alt={user?.username ?? undefined}
+                        alt={user?.fullName ?? undefined}
                     />
-                    <p>{user?.fullName}</p>
+                    <p>{user?.fullName || user?.email}</p>
                 </div>
             </div>
 
@@ -61,9 +61,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                         type='email'
                         className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
                         required
-                        defaultValue={
-                            user?.emailAddresses[0].emailAddress || ""
-                        }
+                        defaultValue={user?.email || ""}
                     />
                 </div>
 

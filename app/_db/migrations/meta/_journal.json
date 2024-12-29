@@ -8,6 +8,13 @@
       "when": 1735396967956,
       "tag": "0000_silent_wasp",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1735466477240,
+      "tag": "0001_medical_radioactive_man",
+      "breakpoints": true
     }
   ]
 }

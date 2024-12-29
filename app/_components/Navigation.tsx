@@ -52,21 +52,20 @@ function Navigation() {
                          transition-colors duration-150'>
                             {isProfileLink ? (
                                 <>
-                                    <>
-                                        <SignedIn>
-                                            <span className='flex'>
-                                                <UserButton />
-                                            </span>
-                                        </SignedIn>
-
+                                    {/* when signed in */}
+                                    <SignedIn>
+                                        <span className='flex'>
+                                            <UserButton />
+                                        </span>
                                         <ActiveLink
                                             href={link.href}
                                             activeClassName='text-[#ffcaa5]'
                                             className=''>
                                             {link.text}
                                         </ActiveLink>
-                                    </>
+                                    </SignedIn>
 
+                                    {/* when signed out */}
                                     <SignIn styles='py-2 px-4 lg:py-4 lg:px-8' />
                                 </>
                             ) : (

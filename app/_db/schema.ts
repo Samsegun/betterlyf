@@ -18,6 +18,7 @@ export const usersTable = pgTable(
         id: varchar("id", { length: 50 }).primaryKey(), // Clerk's user.id
         fullName: varchar("full_name", { length: 255 }).notNull(),
         email: varchar("email", { length: 255 }).notNull().unique(),
+        imageUrl: varchar("image_url", { length: 500 }),
         phoneNumber: varchar("phone_number", { length: 20 }),
         role: varchar("role", { length: 20 }).notNull().default("patient"), // 'patient', 'specialist' or 'admin'
         lastLoginAt: timestamp("last_login_at"),

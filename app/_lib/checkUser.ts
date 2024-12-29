@@ -23,11 +23,13 @@ export async function checkUser() {
     if (loggedInUser.length > 0) return loggedInUser[0];
 
     // if not in db, create user
+    const name = user.fullName ?? "";
     const newUser = await db
         .insert(usersTable)
         .values({
             id: user.id,
-            fullName: `${user.firstName} ${user.lastName}`,
+            fullName: name,
+            imageUrl: user.imageUrl,
             email: user.emailAddresses[0].emailAddress,
         })
         .returning();

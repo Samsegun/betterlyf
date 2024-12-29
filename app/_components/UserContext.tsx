@@ -1,12 +1,14 @@
 // contexts/user-context.tsx
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import { createContext, useContext, useState, useEffect } from "react";
 
 type User = {
     id: string;
     fullName: string;
     email: string;
+    imageUrl: string;
 };
 
 type UserContextType = {
@@ -17,6 +19,14 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 function UserProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
+    const { isSignedIn } = useUser();
+
+    // // Clear user data when signed out
+    useEffect(() => {
+        if (!isSignedIn) {
+            setUser(null);
+        }
+    }, [isSignedIn]);
 
     useEffect(() => {
         const initializeUser = async () => {
