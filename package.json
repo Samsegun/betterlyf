@@ -10,12 +10,14 @@
         "lint": "next lint",
         "generate": "npx drizzle-kit generate",
         "migrate": "npx drizzle-kit migrate",
-        "db-create": "npx drizzle-kit push"
+        "db-create": "npx drizzle-kit push",
+        "seed": "tsx scripts/seed-specialists.ts"
     },
     "dependencies": {
         "@clerk/nextjs": "^6.9.4",
         "@heroicons/react": "^2.2.0",
         "@neondatabase/serverless": "^0.10.4",
+        "@vercel/blob": "^0.27.0",
         "date-fns": "^4.1.0",
         "dotenv": "^16.4.7",
         "drizzle-orm": "^0.38.1",

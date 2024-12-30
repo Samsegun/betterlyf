@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 export interface BookingData {
     patientId: number | string | undefined;
     specialistId: number;
-    email: string | undefined;
+    // email: string | undefined;
     appointmentDate: Date | undefined;
 }
 

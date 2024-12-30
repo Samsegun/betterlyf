@@ -6,6 +6,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 type User = {
     id: string;
+    clerkId: string;
     fullName: string;
     email: string;
     imageUrl: string;

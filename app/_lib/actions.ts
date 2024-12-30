@@ -2,10 +2,11 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { format } from "date-fns";
-import { patientsTable } from "../_db/schema";
+import { bookingsTable, patientsTable } from "../_db/schema";
 import { db } from "../_db";
 // import { validatePatientData } from "../_types/validateData";
 import { BookingData } from "../_types";
+import { validateBookingsData } from "../_types/validateData";
 // import { ensurePatientExists } from "../_utils/helpers";
 
 export async function createBooking(
@@ -14,6 +15,17 @@ export async function createBooking(
 ) {
     const session = await auth();
     if (!session) throw new Error("You must be logged in");
+
+    // First, create the patient record if it doesn't exist
+    const patientRecord = await db
+        .insert(patientsTable)
+        .values({
+            userId: String(bookingData.patientId),
+        })
+        .onConflictDoNothing() // This prevents errors if the patient already exists
+        .returning();
+
+    console.log(patientRecord);
 
     const appointmentDate = format(bookingData.appointmentDate!, "yyyy-MM-dd"); // Format date from react-day-picker
 
@@ -26,24 +38,34 @@ export async function createBooking(
         status: "pending", // Initial status
         purposeOfVisit: formData.get("purposeOfVisit"),
     };
+
     console.log(newBookingData);
 
-    /* booking flow
+    // const validatedBookingData = validateBookingsData(newBookingData);
+
+    // const createdBooking = await db
+    //     .insert(bookingsTable)
+    //     .values(validatedBookingData)
+    //     .returning();
+
+    // console.log(createdBooking);
+}
+
+/* booking flow
     -- extract required data from incoming bookingData and call ensurePatientExists function
      to insert patient(user) record if record does not exists
     */
-    //type-checking
-    // const patientData = validatePatientData({
-    //     patientId: newBookingData.patientId,
-    //     fullName: newBookingData.fullName,
-    //     email: newBookingData.email,
-    //     phoneNumber: newBookingData.phoneNumber,
-    // });
-    // const patientExists = await ensurePatientExists(patientData);
+//type-checking
+// const patientData = validatePatientData({
+//     patientId: newBookingData.patientId,
+//     fullName: newBookingData.fullName,
+//     email: newBookingData.email,
+//     phoneNumber: newBookingData.phoneNumber,
+// });
+// const patientExists = await ensurePatientExists(patientData);
 
-    const patients = await db.select().from(patientsTable);
-    console.log(patients);
-}
+// const patients = await db.select().from(patientsTable);
+// console.log(patients);
 
 // export async function createReservation(bookingData, formData) {
 // const session = await auth();

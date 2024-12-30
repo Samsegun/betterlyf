@@ -11,9 +11,9 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
     const { appointmentDay, resetAppointmentDay } = useBooking();
 
     const bookingData = {
-        patientId: user?.id, // userId comes from Clerk
+        patientId: user?.clerkId, // userId comes from Clerk
         specialistId: specialist.id, // Pass the ID of the selected specialist
-        email: user?.email,
+        // email: user?.email,
         appointmentDate: appointmentDay,
     };
 

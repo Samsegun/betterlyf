@@ -1,5 +1,5 @@
 {
-  "id": "9143040b-9a4d-42ba-a6e4-dbf59b1b7f51",
+  "id": "5d38993e-0ca4-49d8-8549-dbc08eacabf5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,9 +10,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "patient_id": {
           "name": "patient_id",
@@ -22,7 +23,7 @@
         },
         "specialist_id": {
           "name": "specialist_id",
-          "type": "integer",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
@@ -116,10 +117,17 @@
       "name": "patients",
       "schema": "",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
         "user_id": {
           "name": "user_id",
           "type": "varchar(50)",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "date_of_birth": {
@@ -151,22 +159,30 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "patients_user_id_users_id_fk": {
-          "name": "patients_user_id_users_id_fk",
+        "patients_user_id_users_clerk_id_fk": {
+          "name": "patients_user_id_users_clerk_id_fk",
           "tableFrom": "patients",
           "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "id"
+            "clerk_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "patients_user_id_unique": {
+          "name": "patients_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -177,9 +193,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "full_name": {
           "name": "full_name",
@@ -273,8 +290,15 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(50)",
+          "type": "uuid",
           "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "clerk_id": {
+          "name": "clerk_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
           "notNull": true
         },
         "full_name": {
@@ -288,6 +312,12 @@
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false
         },
         "phone_number": {
           "name": "phone_number",
@@ -327,6 +357,13 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "users_clerk_id_unique": {
+          "name": "users_clerk_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "clerk_id"
+          ]
+        },
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,

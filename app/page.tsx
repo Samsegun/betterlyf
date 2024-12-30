@@ -6,7 +6,6 @@ import { useLoggedInUser } from "./_components/UserContext";
 export default function Page() {
     const { user } = useLoggedInUser();
     const name = user?.fullName ? `, ${user.fullName.split(" ")[0]}` : "";
-    console.log(user);
 
     return (
         <div className='mt-24 lg:mt-48 flex flex-col items-center justify-center'>

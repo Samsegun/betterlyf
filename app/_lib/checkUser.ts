@@ -16,7 +16,7 @@ export async function checkUser() {
     const loggedInUser = await db
         .select()
         .from(usersTable)
-        .where(eq(usersTable.id, user.id))
+        .where(eq(usersTable.clerkId, user.id))
         .limit(1);
 
     // if loggedInUser, return user
@@ -27,7 +27,7 @@ export async function checkUser() {
     const newUser = await db
         .insert(usersTable)
         .values({
-            id: user.id,
+            clerkId: user.id,
             fullName: name,
             imageUrl: user.imageUrl,
             email: user.emailAddresses[0].emailAddress,
