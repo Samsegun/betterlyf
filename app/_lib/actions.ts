@@ -2,11 +2,11 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { format } from "date-fns";
-import { bookingsTable, patientsTable } from "../_db/schema";
+import { patientsTable } from "../_db/schema";
 import { db } from "../_db";
 // import { validatePatientData } from "../_types/validateData";
 import { BookingData } from "../_types";
-import { validateBookingsData } from "../_types/validateData";
+// import { validateBookingsData } from "../_types/validateData";
 // import { ensurePatientExists } from "../_utils/helpers";
 
 export async function createBooking(
