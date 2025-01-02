@@ -2,10 +2,11 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import Specialist from "@/app/_components/Specialist";
-import { mockSpecialists } from "@/app/_components/SpecialistList";
 import Spinner from "@/app/_components/Spinner";
 import Booking from "@/app/_components/Booking";
 import { BookingProvider } from "@/app/_components/BookingContext";
+import { getSpecialist, getSpecialists } from "@/app/_lib/data-service";
+// import { ProfileImageUpload } from "@/app/_components/ProfileImageUpload";
 
 export async function generateMetadata({
     params,
@@ -13,10 +14,7 @@ export async function generateMetadata({
     params: Promise<{ id: string }>;
 }) {
     const { id } = await params;
-
-    const specialist = mockSpecialists.find(
-        specialist => String(specialist.id) === id
-    );
+    const specialist = await getSpecialist(id);
 
     return {
         title: `Dr. ${specialist?.fullName}`,
@@ -28,7 +26,7 @@ export async function generateMetadata({
 // This pre-defines the `specialistId` values for Static Site Generation (SSG),
 // allowing Next.js to statically generate pages for each specialist.
 export async function generateStaticParams() {
-    const specialists = mockSpecialists;
+    const specialists = await getSpecialists();
 
     const ids = specialists.map(specialist => ({
         specialistId: String(specialist.id),
@@ -39,9 +37,7 @@ export async function generateStaticParams() {
 
 async function Page(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
-    const specialist = mockSpecialists.find(
-        specialist => String(specialist.id) === params.id
-    );
+    const specialist = await getSpecialist(params.id);
 
     if (!specialist) notFound();
 
@@ -53,6 +49,8 @@ async function Page(props: { params: Promise<{ id: string }> }) {
                 <h2 className='text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-accent-400 mb-10'>
                     Book Dr. {specialist.fullName} today.
                 </h2>
+
+                {/* <ProfileImageUpload /> */}
 
                 <Suspense fallback={<Spinner />}>
                     <BookingProvider>

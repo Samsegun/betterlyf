@@ -1,8 +1,10 @@
+import { InferInsertModel } from "drizzle-orm";
 import { ReactNode } from "react";
+import { specialistsTable } from "../_db/schema";
 
 export interface BookingData {
     patientId: number | string | undefined;
-    specialistId: number;
+    specialistId: string;
     // email: string | undefined;
     appointmentDate: Date | undefined;
 }
@@ -14,20 +16,23 @@ export interface PatientData {
     phoneNumber: string;
 }
 
-export interface SpecialistType {
-    id: number;
-    fullName: string;
-    specialization: string;
-    email: string;
-    phoneNumber: string;
-    profilePictureUrl: string;
-    bio: string;
-    price: number;
-    location: string;
-    expertiseYears: number;
-    createdAt: string;
-    updatedAt: string;
-}
+export type SpecialistType = InferInsertModel<typeof specialistsTable>;
+
+// export interface SpecialistType {
+//     id: string;
+//     userId: string | null;
+//     fullName: string;
+//     specialization: string;
+//     email: string;
+//     phoneNumber: string;
+//     profilePictureUrl: string | null;
+//     bio: string;
+//     price: number;
+//     location: string;
+//     expertiseYears: number;
+//     createdAt: string;
+//     updatedAt: string;
+// }
 
 export const specialistTypes = [
     "all",

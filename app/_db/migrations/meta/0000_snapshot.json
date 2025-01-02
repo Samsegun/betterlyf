@@ -1,5 +1,5 @@
 {
-  "id": "5d38993e-0ca4-49d8-8549-dbc08eacabf5",
+  "id": "a5900ccd-1f6e-44ec-b870-41c55ba1891a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -41,7 +41,7 @@
         },
         "time_slot": {
           "name": "time_slot",
-          "type": "time",
+          "type": "time(0)",
           "primaryKey": false,
           "notNull": true
         },
@@ -108,9 +108,28 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "unique_appointment_slot": {
+          "name": "unique_appointment_slot",
+          "nullsNotDistinct": false,
+          "columns": [
+            "specialist_id",
+            "appointment_date",
+            "time_slot"
+          ]
+        }
+      },
       "policies": {},
-      "checkConstraints": {},
+      "checkConstraints": {
+        "time_slot_check": {
+          "name": "time_slot_check",
+          "value": "\"bookings\".\"time_slot\" IN ('09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00')"
+        },
+        "status_check": {
+          "name": "status_check",
+          "value": "\"bookings\".\"status\" IN ('pending', 'confirmed', 'cancelled', 'completed', 'no-show')"
+        }
+      },
       "isRLSEnabled": false
     },
     "public.patients": {
@@ -198,6 +217,12 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "full_name": {
           "name": "full_name",
           "type": "varchar(100)",
@@ -269,9 +294,30 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "specialists_user_id_users_clerk_id_fk": {
+          "name": "specialists_user_id_users_clerk_id_fk",
+          "tableFrom": "specialists",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "clerk_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "specialists_user_id_unique": {
+          "name": "specialists_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        },
         "specialists_email_unique": {
           "name": "specialists_email_unique",
           "nullsNotDistinct": false,

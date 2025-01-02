@@ -58,7 +58,12 @@ function DateSelector({ specialist }: { specialist: SpecialistType }) {
             <div className='my-4 flex items-center gap-4 justify-center px-8 py-10 h-[72px]'>
                 <div className='flex'>
                     <p className='text-2xl'>
-                        <span className=''>#{specialist.price}</span>
+                        <span className=''>
+                            #
+                            {new Intl.NumberFormat().format(
+                                Number(specialist.price)
+                            )}
+                        </span>
 
                         <span className=''>/booking</span>
                     </p>

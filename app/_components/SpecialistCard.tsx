@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import { SpecialistType } from "../_types";
+import dent from "@/public/specialists/dent2.jpg";
 
 interface SpecialistCardProps {
     specialist: SpecialistType;
@@ -15,7 +16,7 @@ function SpecialistCard({ specialist }: SpecialistCardProps) {
             {/* Profile Picture */}
             <div className='relative basis-9/12 md:flex-1'>
                 <Image
-                    src={profilePictureUrl}
+                    src={dent}
                     fill
                     alt={`dr. ${fullName}`}
                     className='object-cover border-b border-white sm:border-b-0 sm:border-r'
@@ -26,7 +27,7 @@ function SpecialistCard({ specialist }: SpecialistCardProps) {
             <div className='flex flex-col flex-grow'>
                 <div className='pt-5 pb-4 px-7 border-b border-white sm:border-b-0'>
                     {/* Full Name */}
-                    <h3 className='text-[#ffb47e] font-semibold text-2xl mb-3'>
+                    <h3 className='text-[#ffb47e] capitalize font-semibold text-2xl mb-3'>
                         Dr. {fullName}
                     </h3>
 

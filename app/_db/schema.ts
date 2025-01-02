@@ -9,6 +9,7 @@ import {
     unique,
     numeric,
     uuid,
+    check,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -44,6 +45,9 @@ export const specialistsTable = pgTable("specialists", {
         .primaryKey()
         .notNull()
         .default(sql`gen_random_uuid()`),
+    userId: varchar("user_id", { length: 50 })
+        .unique()
+        .references(() => usersTable.clerkId),
     fullName: varchar("full_name", { length: 100 }).notNull(),
     specialization: varchar("specialization", { length: 50 }).notNull(),
     email: varchar("email", { length: 255 }).notNull().unique(),
@@ -98,26 +102,47 @@ export const bookingsTable = pgTable(
             .references(() => specialistsTable.id),
         fullName: varchar("full_name", { length: 255 }).notNull(),
         appointmentDate: date("appointment_date").notNull(),
-        timeSlot: time("time_slot").notNull(),
+        timeSlot: time("time_slot", { precision: 0 }).notNull(),
         phoneNumber: varchar("phone_number", { length: 20 }).notNull(),
         status: varchar("status", { length: 20 }).notNull(),
         purposeOfVisit: varchar("purpose_of_visit", { length: 255 }),
         createdAt: timestamp("created_at").notNull().defaultNow(),
         updatedAt: timestamp("updated_at").notNull().defaultNow(),
     },
-    bookings => [
-        {
-            uniqueAppointment: unique().on(
-                bookings.specialistId,
-                bookings.appointmentDate,
-                bookings.timeSlot
-            ),
-        },
-        {
-            tableConstraints: {
-                timeSlotCheck: sql`CHECK (time_slot IN ('09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00'))`,
-                statusCheck: sql`CHECK (status IN ('pending', 'confirmed', 'cancelled', 'completed', 'no-show'))`,
-            },
-        },
+    b => [
+        unique("unique_appointment_slot").on(
+            b.specialistId,
+            b.appointmentDate,
+            b.timeSlot
+        ),
+        check(
+            "time_slot_check",
+            sql`${b.timeSlot} IN ('09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00')`
+        ),
+        check(
+            "status_check",
+            sql`${b.status} IN ('pending', 'confirmed', 'cancelled', 'completed', 'no-show')`
+        ),
     ]
 );
+
+// {
+//     uniqueAppointmentSlot: unique("unique_appointment_slot").on(
+//         bookings.specialistId,
+//         bookings.appointmentDate,
+//         bookings.timeSlot
+//     ),
+//     timeSlotCheck: check(
+//         "time_slot_check",
+//         sql`${bookings.timeSlot} IN ('09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00')`
+//     ),
+//     statusCheck: check(
+//         "status_check",
+//         sql`${bookings.status} IN ('pending', 'confirmed', 'cancelled', 'completed', 'no-show')`
+//     ),
+// },
+
+// tableConstraints: {
+//     timeSlotCheck: sql`CHECK (time_slot IN ('09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00'))`,
+//     statusCheck: sql`CHECK (status IN ('pending', 'confirmed', 'cancelled', 'completed', 'no-show'))`,
+// },

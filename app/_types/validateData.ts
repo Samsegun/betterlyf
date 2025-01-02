@@ -44,7 +44,7 @@ export function validateBookingsData(bookingData: {
     status: string;
     purposeOfVisit: FormDataEntryValue | null;
     patientId: number | string | undefined;
-    specialistId: number;
+    specialistId: string;
 }) {
     const patientId = String(bookingData.patientId);
     const fullName = bookingData.fullName ? String(bookingData.fullName) : "";

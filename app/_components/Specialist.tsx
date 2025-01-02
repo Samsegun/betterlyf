@@ -6,6 +6,7 @@ import {
     MapPinIcon,
     StarIcon,
 } from "@heroicons/react/24/solid";
+import dent from "@/public/specialists/dent2.jpg";
 
 function Specialist({ specialist }: { specialist: SpecialistType }) {
     const {
@@ -21,7 +22,7 @@ function Specialist({ specialist }: { specialist: SpecialistType }) {
         <div className='hero rounded-lg shadow-2xl'>
             <div className='hero-content flex-col lg:flex-row lg:gap-10 xl:gap-16'>
                 <Image
-                    src={profilePictureUrl}
+                    src={dent}
                     width={300}
                     height={200}
                     // fill
@@ -56,8 +57,7 @@ function Specialist({ specialist }: { specialist: SpecialistType }) {
                             </span>
                         </li>
                         <li className='text-md italic'>
-                            <TextExpander>{`${bio} Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                            Eum inventore vitae molestias iste architecto voluptatibus possimus laudantium placeat laborum, delectus est fugiat earum hic porro iure itaque. Quod dolorum explicabo accusantium corrupti maxime, rem officiis, molestias maiores ut quae voluptatibus?`}</TextExpander>
+                            <TextExpander>{`${bio}`}</TextExpander>
                         </li>
                     </ul>
                 </div>

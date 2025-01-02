@@ -15,7 +15,7 @@ const filters = [
     "gp",
     "pediatrician",
     "gynecologist",
-    "Dentist",
+    "dentist",
     "ophthalmologist",
     "physiotherapist",
 ];
