@@ -1,6 +1,6 @@
 import { InferInsertModel } from "drizzle-orm";
 import { ReactNode } from "react";
-import { specialistsTable } from "../_db/schema";
+import { bookingsTable, specialistsTable } from "../_db/schema";
 
 export interface BookingData {
     patientId: number | string | undefined;
@@ -17,22 +17,7 @@ export interface PatientData {
 }
 
 export type SpecialistType = InferInsertModel<typeof specialistsTable>;
-
-// export interface SpecialistType {
-//     id: string;
-//     userId: string | null;
-//     fullName: string;
-//     specialization: string;
-//     email: string;
-//     phoneNumber: string;
-//     profilePictureUrl: string | null;
-//     bio: string;
-//     price: number;
-//     location: string;
-//     expertiseYears: number;
-//     createdAt: string;
-//     updatedAt: string;
-// }
+export type BookingType = InferInsertModel<typeof bookingsTable>;
 
 export const specialistTypes = [
     "all",
@@ -48,3 +33,9 @@ export const specialistTypes = [
 export type SpecialistFilter = (typeof specialistTypes)[number];
 
 export type SubmitButtonType = { pendingLabel: string; children: ReactNode };
+
+// types/errors.ts
+export type BookingError = {
+    type: "DOUBLE_BOOKING" | "INVALID_TIME" | "INVALID_STATUS" | "UNKNOWN";
+    message: string;
+};

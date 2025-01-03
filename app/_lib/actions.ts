@@ -2,12 +2,11 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { format } from "date-fns";
-import { patientsTable, bookingsTable } from "../_db/schema";
+import { patientsTable } from "../_db/schema";
 import { db } from "../_db";
-// import { validatePatientData } from "../_types/validateData";
 import { BookingData } from "../_types";
 import { validateBookingsData } from "../_types/validateData";
-// import { ensurePatientExists } from "../_utils/helpers";
+import { handleBookingSubmission } from "../_utils/bookings";
 
 export async function createBooking(
     bookingData: BookingData,
@@ -17,6 +16,7 @@ export async function createBooking(
     if (!session) throw new Error("You must be logged in");
 
     // First, create the patient record if it doesn't exist
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const patientRecord = await db
         .insert(patientsTable)
         .values({
@@ -24,8 +24,6 @@ export async function createBooking(
         })
         .onConflictDoNothing() // This prevents errors if the patient already exists
         .returning();
-
-    console.log(patientRecord);
 
     const appointmentDate = format(bookingData.appointmentDate!, "yyyy-MM-dd"); // Format date from react-day-picker
 
@@ -40,13 +38,14 @@ export async function createBooking(
     };
 
     const validatedBookingData = validateBookingsData(newBookingData);
+    const result = await handleBookingSubmission(validatedBookingData);
 
-    const createdBooking = await db
-        .insert(bookingsTable)
-        .values(validatedBookingData)
-        .returning();
+    if (!result.success) {
+        throw new Error(result.error?.message);
+    }
 
-    console.log(createdBooking);
+    // Handle successful booking
+    return result;
 }
 
 // export async function updateSpecialists() {

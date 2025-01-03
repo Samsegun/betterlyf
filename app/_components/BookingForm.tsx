@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useBooking } from "./BookingContext";
 import { SpecialistType } from "../_types";
 import SubmitButton from "./SubmitButton";
@@ -7,6 +8,7 @@ import { createBooking } from "../_lib/actions";
 import { useLoggedInUser } from "./UserContext";
 
 function BookingForm({ specialist }: { specialist: SpecialistType }) {
+    const [error, setError] = useState<string | undefined | null>(null);
     const { user } = useLoggedInUser();
     const { appointmentDay, resetAppointmentDay } = useBooking();
 
@@ -17,6 +19,23 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
     };
 
     const createBookingWithData = createBooking.bind(null, bookingData);
+
+    const handleSubmit = async (formData: FormData) => {
+        try {
+            const result = await createBookingWithData(formData);
+            if (!result.success) {
+                setError(result.error?.message);
+                return;
+            }
+            // Only reset if booking was successful
+            setError(null);
+            resetAppointmentDay();
+        } catch (err) {
+            setError(
+                err instanceof Error ? err.message : "Something went wrong"
+            );
+        }
+    };
 
     return (
         <div className='border-t-2 mt-8 lg:mt-0 lg:border-t-0 grid scale-[1.01]'>
@@ -36,10 +55,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
             </div>
 
             <form
-                action={async formData => {
-                    await createBookingWithData(formData);
-                    resetAppointmentDay();
-                }}
+                action={handleSubmit}
                 className='py-10 px-8 lg:px-16 text-lg flex gap-5 flex-col'>
                 <div className='space-y-2'>
                     <label htmlFor='fullName'>Full Name</label>
@@ -59,7 +75,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                         id='email'
                         type='email'
                         className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
-                        required
+                        readOnly
                         defaultValue={user?.email || ""}
                     />
                 </div>
@@ -113,6 +129,12 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                         placeholder='Anything your doctor should know before hand?'
                     />
                 </div>
+
+                {error && (
+                    <div className='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50'>
+                        {error}
+                    </div>
+                )}
 
                 <div className='flex justify-end items-center gap-6'>
                     {!appointmentDay ? (
