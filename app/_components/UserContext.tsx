@@ -33,8 +33,9 @@ function UserProvider({ children }: { children: React.ReactNode }) {
         const initializeUser = async () => {
             try {
                 // const userData = await checkUser();
-                const response = await fetch("/api/user"); // You'll need to create this API route
+                const response = await fetch("/api/user");
                 const userData = await response.json();
+                console.log(userData);
                 setUser(userData);
             } catch (error) {
                 console.error("Error fetching user:", error);

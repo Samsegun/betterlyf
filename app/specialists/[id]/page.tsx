@@ -6,7 +6,6 @@ import Spinner from "@/app/_components/Spinner";
 import Booking from "@/app/_components/Booking";
 import { BookingProvider } from "@/app/_components/BookingContext";
 import { getSpecialist, getSpecialists } from "@/app/_lib/data-service";
-// import { ProfileImageUpload } from "@/app/_components/ProfileImageUpload";
 
 export async function generateMetadata({
     params,

@@ -1,38 +1,39 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
-import { InferInsertModel } from "drizzle-orm";
+// import { drizzle } from "drizzle-orm/neon-http";
+// import { neon } from "@neondatabase/serverless";
+// import { InferInsertModel } from "drizzle-orm";
 import { config } from "dotenv";
-import { specialistsTable } from "@/app/_db/schema";
+// import { specialistsTable } from "@/app/_db/schema";
+import { createClient } from "@supabase/supabase-js";
 
 config({ path: ".env" });
 
-type SpecialistInput = Omit<
-    InferInsertModel<typeof specialistsTable>,
-    "id" | "createdAt" | "updatedAt"
->;
+// type SpecialistInput = Omit<
+//     InferInsertModel<typeof specialistsTable>,
+//     "id" | "createdAt" | "updatedAt"
+// >;
 
 // Sample specialist data
-const specialistsData: SpecialistInput[] = [
-    {
-        fullName: "micheal carter",
-        specialization: "dentist",
-        email: "micheal.carter@example.com",
-        phoneNumber: "+2348088880",
-        bio: "Dr. Micheal Carter is dedicated to providing high-quality dental care in a comfortable and compassionate setting. He strives to build long-term relationships with his patients and empower them to make informed decisions about their oral health.",
-        price: "7500",
-        location: "lagos",
-        expertiseYears: 9,
-    },
-    {
-        fullName: "anthony james",
-        specialization: "dentist",
-        email: "tony.james@example.com",
-        phoneNumber: "+234802399990",
-        bio: "Dr. Anthony James is a dentist with a special interest in cosmetic dentistry, orthodontics, pediatric dentistry. He is committed to providing high-quality dental care to the local community, underserved population and actively participate in community health initiatives.",
-        price: "8000",
-        location: "abuja",
-        expertiseYears: 10,
-    },
+const specialistsData = [
+    // {
+    //     fullName: "micheal carter",
+    //     specialization: "dentist",
+    //     email: "micheal.carter@example.com",
+    //     phoneNumber: "+2348088880",
+    //     bio: "Dr. Micheal Carter is dedicated to providing high-quality dental care in a comfortable and compassionate setting. He strives to build long-term relationships with his patients and empower them to make informed decisions about their oral health.",
+    //     price: 7500,
+    //     location: "lagos",
+    //     experience: 9,
+    // },
+    // {
+    //     fullName: "anthony james",
+    //     specialization: "dentist",
+    //     email: "tony.james@example.com",
+    //     phoneNumber: "+234802399990",
+    //     bio: "Dr. Anthony James is a dentist with a special interest in cosmetic dentistry, orthodontics, pediatric dentistry. He is committed to providing high-quality dental care to the local community, underserved population and actively participate in community health initiatives.",
+    //     price: 8000,
+    //     location: "abuja",
+    //     experience: 10,
+    // },
     {
         fullName: "olumide adebayo",
         specialization: "general practitioner",
@@ -41,7 +42,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Adebayo is a compassionate and experienced General Practitioner dedicated to providing comprehensive and personalized healthcare for patients of all ages. With 10 years of experience, he has a strong foundation in diagnosing and treating a wide range of medical conditions, from routine check-ups and vaccinations to managing chronic illnesses like diabetes and hypertension.",
         price: "10000",
         location: "ibadan",
-        expertiseYears: 10,
+        experience: 10,
     },
     {
         fullName: " david johnson",
@@ -51,7 +52,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. David Johnson creates a comfortable and supportive environment for her patients, ensuring they feel heard and understood. He strives to build long-term relationships with his patients and provide personalized care that meets their unique needs and concerns.",
         price: "15000",
         location: "abuja",
-        expertiseYears: 10,
+        experience: 10,
     },
     {
         fullName: "chris adams",
@@ -61,7 +62,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Chris Adams creates a comfortable and welcoming environment for his patients, prioritizing their individual needs and concerns. He believes in open communication and strive to empower patients to make informed decisions about their health.",
         price: "10000",
         location: "lagos",
-        expertiseYears: 18,
+        experience: 18,
     },
     {
         fullName: "abiodun olayemi",
@@ -71,7 +72,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Abiodun Olayemi is committed to staying abreast of the latest advancements in women's health and utilizes the latest diagnostic tools and treatment options to ensure the best possible outcomes for his patients. He prioritizes patient education and strives to empower women to make informed decisions about their reproductive health.",
         price: "12000",
         location: "abuja",
-        expertiseYears: 9,
+        experience: 9,
     },
     {
         fullName: "olivia brown",
@@ -81,7 +82,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Olivia Brown believes in a patient-centered approach to oral health, emphasizing preventative care and patient education. She works closely with patients to develop personalized treatment plans that address their individual needs and goals.",
         price: "5000",
         location: "lagos",
-        expertiseYears: 8,
+        experience: 8,
     },
     {
         fullName: "emma davis",
@@ -91,7 +92,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Emma Davis is dedicated to providing high-quality dental care in a comfortable and compassionate setting. She strives to build long-term relationships with her patients and empower them to make informed decisions about their oral health.",
         price: "9000",
         location: "abuja",
-        expertiseYears: 11,
+        experience: 11,
     },
     {
         fullName: "daniel bennett",
@@ -101,7 +102,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Daniel Bennett is a compassionate and experienced General Practitioner dedicated to providing comprehensive and personalized healthcare for patients of all ages. With over 20 years of experience, Dr. Daniel Bennett has a strong foundation in diagnosing and treating a wide range of medical conditions, from routine check-ups and vaccinations to managing chronic illnesses like diabetes and hypertension.",
         price: "15000",
         location: "abuja",
-        expertiseYears: 20,
+        experience: 20,
     },
     {
         fullName: "sophia wilson",
@@ -111,7 +112,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Sophia Wilson is committed to staying abreast of the latest advancements in dental technology and techniques to ensure patients receive the most effective and up-to-date care. She prioritizes patient comfort and strive to create a relaxed and welcoming environment for all her patients.",
         price: "6000",
         location: "lagos",
-        expertiseYears: 10,
+        experience: 10,
     },
     {
         fullName: "joshua brooks",
@@ -121,7 +122,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Joshua Brooks is a General Practitioner with a special interest in preventive medicine, geriatrics, women's health. He is committed to providing high-quality, patient-centered care to the local community, underserved population and actively participate in community health initiatives.",
         price: "20000",
         location: "lagos",
-        expertiseYears: 28,
+        experience: 28,
     },
     {
         fullName: "samuel morgan",
@@ -131,7 +132,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Samuel Morgan is a compassionate and patient-centered gynecologist who believes in providing holistic women's healthcare. He focuses on not only treating medical conditions but also promoting overall women's wellness, including preventive care, reproductive health counseling, and addressing concerns related to sexuality and relationships.",
         price: "7500",
         location: "lagos",
-        expertiseYears: 12,
+        experience: 12,
     },
     {
         fullName: "hannah jenkins",
@@ -141,7 +142,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Hannah Jenkins is a highly experienced gynecologist with a focus on providing comprehensive and compassionate women's healthcare. With Over 25 years of experience, Dr. Hannah Jenkins has a strong foundation in diagnosing and treating a wide range of gynecological conditions, including menstrual disorders, infertility, pregnancy complications, and menopause.",
         price: "18000",
         location: "abuja",
-        expertiseYears: 25,
+        experience: 25,
     },
     {
         fullName: "ngozi ezeh",
@@ -151,7 +152,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Ngozi Ezeh is committed to staying abreast of the latest advancements in women's health and utilizes the latest diagnostic tools and treatment options to ensure the best possible outcomes for her patients. She prioritizes patient education and strives to empower women to make informed decisions about their reproductive health.",
         price: "10000",
         location: "lagos",
-        expertiseYears: 11,
+        experience: 11,
     },
     {
         fullName: "charlotte rivera",
@@ -161,7 +162,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Charlotte Rivera creates a welcoming and comfortable environment for her patients, ensuring they feel heard and understood. She strives to build long-term relationships with her patients and provide comprehensive eye care that addresses their concerns and promotes optimal eye health.",
         price: "10000",
         location: "lagos",
-        expertiseYears: 18,
+        experience: 18,
     },
     {
         fullName: "ifeanyi uche",
@@ -171,7 +172,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Uche is committed to staying abreast of the latest advancements in ophthalmology and utilizes the latest diagnostic tools and treatment options to ensure the best possible outcomes for his patients. He prioritizes patient education and strives to empower individuals to take an active role in their eye health.",
         price: "8000",
         location: "lagos",
-        expertiseYears: 14,
+        experience: 14,
     },
     {
         fullName: "dennis taylor",
@@ -181,7 +182,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Dennis Taylor is a compassionate and patient-centered ophthalmologist who believes in providing personalized eye care tailored to each individual's unique needs. He utilizes the latest technology and minimally invasive techniques to provide comfortable and effective treatments for a wide range of eye conditions.",
         price: "6000",
         location: "lagos",
-        expertiseYears: 10,
+        experience: 10,
     },
     {
         fullName: "matthew harris",
@@ -191,7 +192,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Matthew Harris is a highly skilled ophthalmologist with over 30 years of experience providing comprehensive eye care for patients of all ages. He has a strong foundation in diagnosing and treating a wide range of eye conditions, from routine eye exams and vision correction to complex surgical procedures like cataract surgery and glaucoma management.",
         price: "20000",
         location: "abuja",
-        expertiseYears: 30,
+        experience: 30,
     },
     {
         fullName: "isabella hall",
@@ -201,7 +202,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Hall believes that every child deserves a healthy start in life. Her approach combines evidence-based medicine with a warm, empathetic demeanor, making her patients feel comfortable and valued. She specializes in managing chronic conditions such as asthma and diabetes, and she is particularly interested in nutrition and its impact on child development.",
         price: "5000",
         location: "lagos",
-        expertiseYears: 8,
+        experience: 8,
     },
     {
         fullName: "bimpe ayodele",
@@ -211,7 +212,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Ayodele emphasizes the importance of collaboration between parents and healthcare providers to ensure optimal outcomes for children. She specializes in developmental pediatrics and works closely with families to address concerns related to growth, behavior, and learning challenges.",
         price: "5000",
         location: "lagos",
-        expertiseYears: 8,
+        experience: 8,
     },
     {
         fullName: "amara ugoh",
@@ -221,7 +222,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Amara Ugoh, MD, is a dedicated pediatrician with over 10 years of experience in providing compassionate care to children and their families. After earning her medical degree from the University of California, San Francisco, she completed her residency at Children’s Hospital Los Angeles, where she developed a passion for preventive medicine and childhood wellness.",
         price: "8000",
         location: "abuja",
-        expertiseYears: 12,
+        experience: 12,
     },
     {
         fullName: "alex scott",
@@ -231,7 +232,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Alex Scott practice focuses on integrating telemedicine into routine pediatric care, ensuring that families have access to vital health services regardless of their location. Dr. Scott is also an advocate for mental health awareness in children and adolescents, believing that emotional well-being is just as important as physical health.",
         price: "10000",
         location: "lagos",
-        expertiseYears: 12,
+        experience: 12,
     },
     {
         fullName: "mia green",
@@ -241,7 +242,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Green believes in a patient-centered approach to care, emphasizing individualized treatment plans that address each patient's unique needs and goals. She utilizes a combination of manual therapy techniques, exercise prescription, and patient education to promote healing, reduce pain, and improve mobility.",
         price: "8000",
         location: "lagos",
-        expertiseYears: 10,
+        experience: 10,
     },
     {
         fullName: "mike lewis",
@@ -251,7 +252,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Mike Lewis is a highly experienced physiotherapist with a passion for helping patients achieve their optimal physical function and well-being. With over 18 years of experience in orthopedic, neurological, sports, he has a proven track record of success in treating a wide range of conditions, including back pain, stroke recovery, ACL injuries.",
         price: "14000",
         location: "abuja",
-        expertiseYears: 18,
+        experience: 18,
     },
     {
         fullName: "evelyn price",
@@ -261,7 +262,7 @@ const specialistsData: SpecialistInput[] = [
         bio: "Dr. Evelyn is a compassionate and results-oriented physiotherapist dedicated to helping individuals achieve their full physical potential. Recognizing that physical health is interconnected with overall well-being, she takes a holistic approach to patient care.",
         price: "10000",
         location: "lagos",
-        expertiseYears: 10,
+        experience: 10,
     },
     {
         fullName: "paul mitchell",
@@ -271,26 +272,32 @@ const specialistsData: SpecialistInput[] = [
         bio: "Beyond treating specific injuries and conditions, Dr. Mitchell focuses on improving posture, enhancing movement patterns, and promoting a healthy lifestyle. He believes in empowering patients with the knowledge and tools to manage their own health and prevent future injuries. He creates a supportive and encouraging environment where patients can feel comfortable and confident in their recovery journey.",
         price: "9000",
         location: "lagos",
-        expertiseYears: 12,
+        experience: 12,
     },
 ];
 
 async function seedSpecialists() {
     // Initialize your database connection
-    const sql = neon(process.env.DATABASE_URL!);
-    const db = drizzle(sql);
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
 
     try {
         console.log("Starting to seed specialists...");
 
-        // Insert all specialists
-        const result = await db
-            .insert(specialistsTable)
-            .values(specialistsData)
-            .returning();
+        // const { data } = await supabase.from("specialists").select("*");
+        // console.log(data);
 
-        console.log(`Successfully seeded ${result.length} specialists`);
-        return result;
+        // Insert all specialists
+        const { data, error } = await supabase
+            .from("specialists")
+            .insert(specialistsData)
+            .select();
+
+        if (error) throw error;
+
+        console.log(`Successfully seeded ${data.length} specialists`);
     } catch (error) {
         console.error("Error seeding specialists:", error);
         throw error;

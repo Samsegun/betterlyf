@@ -1,20 +1,20 @@
 // utils/bookings.ts
-import { eq } from "drizzle-orm";
 import { BookingError, BookingType } from "../_types/index";
-import { db } from "../_db";
-import { bookingsTable } from "../_db/schema";
+import { supabase } from "../_lib/supabase";
 
 export async function handleBookingSubmission(
     bookingData: BookingType
 ): Promise<{ success: boolean; error?: BookingError }> {
     try {
         // First, check if the slot is available before trying to insert
-        const existingBooking = await db.query.bookingsTable.findFirst({
-            where: bookings =>
-                eq(bookings.specialistId, bookingData.specialistId) &&
-                eq(bookings.appointmentDate, bookingData.appointmentDate) &&
-                eq(bookings.timeSlot, bookingData.timeSlot),
-        });
+        const { data: existingBooking } = await supabase
+            .from("bookings")
+            .select("*")
+            .eq("specialistId", bookingData.specialistId)
+            .eq("appointmentDate", bookingData.appointmentDate)
+            .eq("timeSlot", bookingData.timeSlot)
+            .limit(1)
+            .single();
 
         // If a booking exists, return early with a friendly message
         if (existingBooking) {
@@ -22,18 +22,19 @@ export async function handleBookingSubmission(
                 success: false,
                 error: {
                     type: "DOUBLE_BOOKING",
-                    message: `This time slot is already booked. Please select a different time or date.`,
+                    message: `The time slot you selected is already booked. Please select a different time or date.`,
                 },
             };
         }
 
         // If no existing booking, proceed with creation
-        const createdBooking = await db
-            .insert(bookingsTable)
-            .values(bookingData)
-            .returning();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { data: createdBooking, error } = await supabase
+            .from("bookings")
+            .insert([bookingData])
+            .select();
 
-        console.log(createdBooking);
+        if (error) throw new Error();
 
         return { success: true };
     } catch (error) {
@@ -46,7 +47,7 @@ export async function handleBookingSubmission(
                     error: {
                         type: "DOUBLE_BOOKING",
                         message:
-                            "This slot was just booked by someone else. Please try another time.",
+                            "This slot was just booked by someone else. Please try another time slot or date.",
                     },
                 };
             }

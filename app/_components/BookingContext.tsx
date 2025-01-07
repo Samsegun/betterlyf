@@ -9,16 +9,6 @@ import {
     useState,
 } from "react";
 
-// interface Booking {
-//     range: { from: undefined | string; to: undefined | string };
-//     setRange: Dispatch<
-//         SetStateAction<{
-//             from: undefined | string;
-//             to: undefined | string;
-//         }>
-//     >;
-//     resetRange: () => void;
-// }
 interface Booking {
     appointmentDay: Date | undefined;
     setAppointmentDay: Dispatch<SetStateAction<Date | undefined>>;

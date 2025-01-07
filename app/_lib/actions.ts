@@ -2,11 +2,10 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { format } from "date-fns";
-import { patientsTable } from "../_db/schema";
-import { db } from "../_db";
 import { BookingData } from "../_types";
 import { validateBookingsData } from "../_types/validateData";
 import { handleBookingSubmission } from "../_utils/bookings";
+import { supabase } from "./supabase";
 
 export async function createBooking(
     bookingData: BookingData,
@@ -15,18 +14,29 @@ export async function createBooking(
     const session = await auth();
     if (!session) throw new Error("You must be logged in");
 
+    /*  patient insertion flow section*/
     // First, create the patient record if it doesn't exist
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const patientRecord = await db
-        .insert(patientsTable)
-        .values({
-            userId: String(bookingData.patientId),
-        })
-        .onConflictDoNothing() // This prevents errors if the patient already exists
-        .returning();
+    const { data: patient, error } = await supabase
+        .from("patients")
+        .upsert(
+            [
+                {
+                    userId: String(bookingData.patientId),
+                },
+            ],
+            { onConflict: "userId" }
+        )
+        .select();
 
+    if (error) {
+        throw new Error("Error during upsert:", error);
+    } else {
+        console.log("Patient record (inserted or unchanged)");
+    }
+
+    /* booking insertion flow section */
     const appointmentDate = format(bookingData.appointmentDate!, "yyyy-MM-dd"); // Format date from react-day-picker
-
     const newBookingData = {
         ...bookingData,
         appointmentDate,

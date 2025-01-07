@@ -1,6 +1,13 @@
 import { InferInsertModel } from "drizzle-orm";
 import { ReactNode } from "react";
-import { bookingsTable, specialistsTable } from "../_db/schema";
+import { bookingsTable } from "../_db/schema";
+import { Database } from "./supabase";
+
+type SpecialistsFromDB = Database["public"]["Tables"]["specialists"]["Row"];
+export type SpecialistType = Omit<
+    SpecialistsFromDB,
+    "created_at" | "updated_at" | "userId" | "email" | "phoneNumber"
+>;
 
 export interface BookingData {
     patientId: number | string | undefined;
@@ -16,7 +23,6 @@ export interface PatientData {
     phoneNumber: string;
 }
 
-export type SpecialistType = InferInsertModel<typeof specialistsTable>;
 export type BookingType = InferInsertModel<typeof bookingsTable>;
 
 export const specialistTypes = [

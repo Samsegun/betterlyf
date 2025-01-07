@@ -1,17 +1,34 @@
-// import { eq } from "drizzle-orm";
-import { db } from "../_db";
-import { specialistsTable } from "../_db/schema";
+import { SpecialistType } from "../_types";
+import { supabase } from "./supabase";
 
-export async function getSpecialists() {
-    const specialists = await db.select().from(specialistsTable);
+export async function getSpecialists(): Promise<SpecialistType[]> {
+    const { data, error } = await supabase
+        .from("specialists")
+        .select(
+            "id, experience, fullName, bio, imageUrl, location, price, specialization"
+        );
 
-    return specialists;
+    if (error) {
+        console.error(error);
+        throw new Error("specialists could not be loaded");
+    }
+
+    return data;
 }
 
-export async function getSpecialist(id: string) {
-    const specialist = await db.query.specialistsTable.findFirst({
-        where: (specialist, { eq }) => eq(specialist.id, id),
-    });
+export async function getSpecialist(id: string): Promise<SpecialistType> {
+    const { data, error } = await supabase
+        .from("specialists")
+        .select(
+            "id, experience, fullName, bio, imageUrl, location, price, specialization"
+        )
+        .eq("id", id)
+        .single();
 
-    return specialist;
+    if (error) {
+        console.error(error);
+        throw new Error("Booking could not get loaded");
+    }
+
+    return data;
 }

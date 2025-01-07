@@ -95,7 +95,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                                 const time24Hour = `${String(hour).padStart(
                                     2,
                                     "0"
-                                )}:00:00`; // e.g., "09:00:00", "15:00:00"
+                                )}:00:00`; // "09:00:00", "17:00:00"
                                 const displayTime = `${
                                     hour <= 12 ? hour : hour - 12
                                 } ${hour < 12 ? "AM" : "PM"}`;
