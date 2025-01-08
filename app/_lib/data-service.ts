@@ -1,4 +1,4 @@
-import { SpecialistType } from "../_types";
+import { BookingsType, BookingType, SpecialistType } from "../_types";
 import { supabase } from "./supabase";
 
 export async function getSpecialists(): Promise<SpecialistType[]> {
@@ -29,6 +29,43 @@ export async function getSpecialist(id: string): Promise<SpecialistType> {
         console.error(error);
         throw new Error("Booking could not get loaded");
     }
+
+    return data;
+}
+
+export async function getBookings(id: string): Promise<BookingsType[]> {
+    const { data, error } = await supabase
+        .from("bookings")
+        .select(
+            "id, patientId, specialistId, appointmentDate, timeSlot, phoneNumber, status, purposeOfVisit, updated_at, created_at, specialists(fullName, imageUrl, price)"
+        )
+        .eq("patientId", id)
+        .returns<BookingsType[]>();
+
+    if (error) {
+        console.error(error);
+        throw new Error("Booking could not get loaded");
+    }
+
+    return data;
+}
+
+export async function getBooking(id: number): Promise<BookingType> {
+    const { data, error } = await supabase
+        .from("bookings")
+        .select(
+            "id, patientId, specialistId, appointmentDate, timeSlot, phoneNumber, status, purposeOfVisit, updated_at, created_at"
+        )
+        .eq("id", id)
+        .returns<BookingType>()
+        .single();
+
+    if (error) {
+        console.error(error);
+        throw new Error("Booking could not get loaded");
+    }
+
+    console.log(data);
 
     return data;
 }

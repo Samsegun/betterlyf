@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import Specialist from "@/app/_components/Specialist";
 import Spinner from "@/app/_components/Spinner";
 import Booking from "@/app/_components/Booking";
-import { BookingProvider } from "@/app/_components/BookingContext";
 import { getSpecialist, getSpecialists } from "@/app/_lib/data-service";
 
 export async function generateMetadata({
@@ -52,9 +51,7 @@ async function Page(props: { params: Promise<{ id: string }> }) {
                 {/* <ProfileImageUpload /> */}
 
                 <Suspense fallback={<Spinner />}>
-                    <BookingProvider>
-                        <Booking specialist={specialist} />
-                    </BookingProvider>
+                    <Booking specialist={specialist} />
                 </Suspense>
             </div>
         </div>

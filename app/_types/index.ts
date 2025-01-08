@@ -1,17 +1,23 @@
-import { InferInsertModel } from "drizzle-orm";
 import { ReactNode } from "react";
-import { bookingsTable } from "../_db/schema";
 import { Database } from "./supabase";
 
 type SpecialistsFromDB = Database["public"]["Tables"]["specialists"]["Row"];
+export type BookingsFromDB = Database["public"]["Tables"]["bookings"]["Row"];
+
 export type SpecialistType = Omit<
     SpecialistsFromDB,
     "created_at" | "updated_at" | "userId" | "email" | "phoneNumber"
 >;
 
+export type BookingsType = Omit<BookingsFromDB, "fullName"> & {
+    specialists?: { price: number; fullName: string; imageUrl: string | null };
+};
+
+export type BookingType = Omit<BookingsFromDB, "created_at" | "updated_at">;
+
 export interface BookingData {
     patientId: number | string | undefined;
-    specialistId: string;
+    specialistId: number;
     // email: string | undefined;
     appointmentDate: Date | undefined;
 }
@@ -23,7 +29,7 @@ export interface PatientData {
     phoneNumber: string;
 }
 
-export type BookingType = InferInsertModel<typeof bookingsTable>;
+// export type BookingType = InferInsertModel<typeof bookingsTable>;
 
 export const specialistTypes = [
     "all",
@@ -44,4 +50,17 @@ export type SubmitButtonType = { pendingLabel: string; children: ReactNode };
 export type BookingError = {
     type: "DOUBLE_BOOKING" | "INVALID_TIME" | "INVALID_STATUS" | "UNKNOWN";
     message: string;
+};
+
+export type User = {
+    id: string;
+    clerkId: string;
+    fullName: string;
+    email: string;
+    imageUrl: string;
+};
+
+export type BookingCardProps = {
+    onDelete: (bookingId: number) => void;
+    booking: BookingsType;
 };

@@ -3,14 +3,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import { createContext, useContext, useState, useEffect } from "react";
-
-type User = {
-    id: string;
-    clerkId: string;
-    fullName: string;
-    email: string;
-    imageUrl: string;
-};
+import { User } from "../_types";
 
 type UserContextType = {
     user: User | null;
@@ -35,7 +28,7 @@ function UserProvider({ children }: { children: React.ReactNode }) {
                 // const userData = await checkUser();
                 const response = await fetch("/api/user");
                 const userData = await response.json();
-                console.log(userData);
+
                 setUser(userData);
             } catch (error) {
                 console.error("Error fetching user:", error);

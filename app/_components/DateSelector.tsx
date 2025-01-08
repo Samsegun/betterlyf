@@ -49,15 +49,15 @@ function DateSelector({ specialist }: { specialist: SpecialistType }) {
                 ]}
             />
             {appointmentDay && (
-                <p className='mt-8 text-lg font-medium text-center tracking-wide italic'>
+                <p className='mt-8 text-sm md:text-lg font-medium text-center tracking-wide italic'>
                     Selected Date:{" "}
                     {format(appointmentDay, "EEEE, MMMM d, yyyy")}
                 </p>
             )}
 
-            <div className='my-4 flex items-center gap-4 justify-center px-8 py-10 h-[72px]'>
+            <div className='my-4 flex flex-col md:flex-row  items-center gap-4 justify-center px-8 py-10 h-[72px]'>
                 <div className='flex'>
-                    <p className='text-2xl'>
+                    <p className='md:text-2xl'>
                         <span className=''>
                             #
                             {new Intl.NumberFormat().format(

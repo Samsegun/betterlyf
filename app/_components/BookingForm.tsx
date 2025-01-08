@@ -6,15 +6,17 @@ import { SpecialistType } from "../_types";
 import SubmitButton from "./SubmitButton";
 import { createBooking } from "../_lib/actions";
 import { useLoggedInUser } from "./UserContext";
+import { useRouter } from "next/navigation";
 
 function BookingForm({ specialist }: { specialist: SpecialistType }) {
     const [error, setError] = useState<string | undefined | null>(null);
     const { user } = useLoggedInUser();
     const { appointmentDay, resetAppointmentDay } = useBooking();
+    const router = useRouter();
 
     const bookingData = {
         patientId: user?.clerkId, // userId comes from Clerk
-        specialistId: String(specialist.id), // Pass the ID of the selected specialist
+        specialistId: specialist.id, // Pass the ID of the selected specialist
         appointmentDate: appointmentDay,
     };
 
@@ -30,6 +32,8 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
             // Only reset if booking was successful
             setError(null);
             resetAppointmentDay();
+
+            router.push("/specialists/thankyou");
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : "Something went wrong"
@@ -56,7 +60,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
 
             <form
                 action={handleSubmit}
-                className='py-10 px-8 lg:px-16 text-lg flex gap-5 flex-col'>
+                className='py-10 px-8 lg:px-16 md:text-lg flex gap-5 flex-col'>
                 <div className='space-y-2'>
                     <label htmlFor='fullName'>Full Name</label>
                     <input
@@ -75,7 +79,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                         id='email'
                         type='email'
                         className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
-                        readOnly
+                        required
                         defaultValue={user?.email || ""}
                     />
                 </div>

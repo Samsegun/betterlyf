@@ -1,10 +1,17 @@
 // utils/bookings.ts
-import { BookingError, BookingType } from "../_types/index";
+import { BookingError } from "../_types/index";
 import { supabase } from "../_lib/supabase";
 
-export async function handleBookingSubmission(
-    bookingData: BookingType
-): Promise<{ success: boolean; error?: BookingError }> {
+export async function handleBookingSubmission(bookingData: {
+    appointmentDate: string;
+    fullName: FormDataEntryValue | null;
+    phoneNumber: FormDataEntryValue | null;
+    timeSlot: FormDataEntryValue | null;
+    status: string;
+    purposeOfVisit: FormDataEntryValue | null;
+    patientId: number | string | undefined;
+    specialistId: number;
+}): Promise<{ success: boolean; error?: BookingError }> {
     try {
         // First, check if the slot is available before trying to insert
         const { data: existingBooking } = await supabase
