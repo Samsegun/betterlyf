@@ -9,7 +9,12 @@ interface SpecialistCardProps {
 }
 
 function SpecialistCard({ specialist }: SpecialistCardProps) {
-    const { id, fullName, profilePictureUrl, specialization } = specialist;
+    const {
+        id,
+        fullName,
+        // profilePictureUrl,
+        specialization,
+    } = specialist;
 
     return (
         <div className='flex flex-col min-h-[36rem] md:min-h-fit md:flex-row border border-white'>
