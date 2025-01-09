@@ -1,16 +1,7 @@
-// import { drizzle } from "drizzle-orm/neon-http";
-// import { neon } from "@neondatabase/serverless";
-// import { InferInsertModel } from "drizzle-orm";
 import { config } from "dotenv";
-// import { specialistsTable } from "@/app/_db/schema";
 import { createClient } from "@supabase/supabase-js";
 
 config({ path: ".env" });
-
-// type SpecialistInput = Omit<
-//     InferInsertModel<typeof specialistsTable>,
-//     "id" | "createdAt" | "updatedAt"
-// >;
 
 // Sample specialist data
 const specialistsData = [
@@ -285,9 +276,6 @@ async function seedSpecialists() {
 
     try {
         console.log("Starting to seed specialists...");
-
-        // const { data } = await supabase.from("specialists").select("*");
-        // console.log(data);
 
         // Insert all specialists
         const { data, error } = await supabase
