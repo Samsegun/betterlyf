@@ -1,7 +1,3 @@
-import { eq } from "drizzle-orm";
-import { db } from "../_db";
-import { patientsTable } from "../_db/schema";
-import { PatientData } from "../_types";
 import { SpecialistType, SpecialistFilter } from "../_types";
 
 export function filterSpecialists(
@@ -46,30 +42,5 @@ export function filterSpecialists(
             );
         default:
             return specialists;
-    }
-}
-
-export async function ensurePatientExists(patientData: PatientData) {
-    const { patientId } = patientData;
-
-    try {
-        // Check if patient already exists
-        const existingPatient = await db
-            .select()
-            .from(patientsTable)
-            .where(eq(patientsTable.userId, patientId))
-            .limit(1);
-
-        if (existingPatient.length === 0) {
-            // Insert patient if not exists
-            await db.insert(patientsTable).values({
-                userId: patientId, // Clerk's user.id
-            });
-        }
-        return existingPatient;
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-        throw new Error("Patient does not exist");
     }
 }
