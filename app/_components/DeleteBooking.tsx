@@ -2,6 +2,7 @@
 
 import { useTransition } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import SpinnerMini from "./SpinnerMini";
 
 function DeleteBooking({
     onDelete,
@@ -31,8 +32,7 @@ function DeleteBooking({
                 </>
             ) : (
                 <span className='mx-auto '>
-                    {/* <SpinnerMini /> */}
-                    loading......
+                    <SpinnerMini />
                 </span>
             )}
         </button>

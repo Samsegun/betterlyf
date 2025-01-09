@@ -5,6 +5,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useBooking } from "./BookingContext";
 import { SpecialistType } from "../_types";
+import { ResetDateButton } from "./ResetDateButton";
 
 // function isAlreadyBooked(range, datesArr) {
 //     return (
@@ -17,8 +18,7 @@ import { SpecialistType } from "../_types";
 // }
 
 function DateSelector({ specialist }: { specialist: SpecialistType }) {
-    const { appointmentDay, setAppointmentDay, resetAppointmentDay } =
-        useBooking();
+    const { appointmentDay, setAppointmentDay } = useBooking();
 
     //
     const today = new Date();
@@ -69,14 +69,7 @@ function DateSelector({ specialist }: { specialist: SpecialistType }) {
                     </p>
                 </div>
 
-                {appointmentDay && (
-                    <button
-                        className='bg-primary-blue px-4 py-3 md:px-8 md:py-4 text-white text-lg font-medium
-             hover:bg-primary-lightBlue transition-all rounded-md hover:cursor-pointer'
-                        onClick={resetAppointmentDay}>
-                        Reset Date
-                    </button>
-                )}
+                {appointmentDay && <ResetDateButton />}
             </div>
         </div>
     );

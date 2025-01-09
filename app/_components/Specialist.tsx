@@ -10,7 +10,7 @@ import dent from "@/public/specialists/dent2.jpg";
 
 function Specialist({ specialist }: { specialist: SpecialistType }) {
     const {
-        imageUrl,
+        // imageUrl,
         fullName,
         bio,
         specialization,

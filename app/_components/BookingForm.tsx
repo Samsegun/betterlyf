@@ -80,6 +80,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                         type='email'
                         className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
                         required
+                        readOnly
                         defaultValue={user?.email || ""}
                     />
                 </div>

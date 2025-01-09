@@ -29,6 +29,12 @@ export interface PatientData {
     phoneNumber: string;
 }
 
+export type PatientType = {
+    id: number;
+    gender: string | null;
+    dateOfBirth: Date | null;
+};
+
 // export type BookingType = InferInsertModel<typeof bookingsTable>;
 
 export const specialistTypes = [

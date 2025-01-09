@@ -1,4 +1,9 @@
-import { BookingsType, BookingType, SpecialistType } from "../_types";
+import {
+    BookingsType,
+    BookingType,
+    PatientType,
+    SpecialistType,
+} from "../_types";
 import { supabase } from "./supabase";
 
 export async function getSpecialists(): Promise<SpecialistType[]> {
@@ -65,7 +70,19 @@ export async function getBooking(id: number): Promise<BookingType> {
         throw new Error("Booking could not get loaded");
     }
 
-    console.log(data);
+    return data;
+}
+export async function getPatient(userId: string): Promise<PatientType> {
+    const { data, error } = await supabase
+        .from("patients")
+        .select("id, gender, dateOfBirth")
+        .eq("userId", userId)
+        .single();
+
+    if (error) {
+        console.error(error);
+        throw new Error("Patient could not get loaded");
+    }
 
     return data;
 }

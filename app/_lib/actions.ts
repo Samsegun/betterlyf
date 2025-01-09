@@ -1,12 +1,13 @@
 "use server";
 
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { format } from "date-fns";
 import { supabase } from "./supabase";
 import { auth } from "@clerk/nextjs/server";
-import { format } from "date-fns";
 import { BookingData } from "../_types";
 import { validateBookingsData } from "../_types/validateData";
 import { handleBookingSubmission } from "../_utils/bookings";
-import { revalidatePath } from "next/cache";
 import { getBookings } from "./data-service";
 
 export async function createBooking(
@@ -84,6 +85,98 @@ export async function deleteBooking(bookingId: number) {
     revalidatePath("/profile/bookings");
 }
 
-export async function updateBooking(formData: FormData) {
-    console.log(formData);
+export async function updateBooking(
+    bookingId: number,
+    editedDate: Date | undefined,
+    formData: FormData
+) {
+    const appointmentDate = format(editedDate!, "yyyy-MM-dd"); // Format date from react-day-picker
+
+    // 1) Authentication
+    const session = await auth();
+    if (!session) throw new Error("You must be logged in");
+
+    //clean up form data
+    const timeSlot = formData.get("timeSlot");
+    const purposeOfVisit = formData.get("purposeOfVisit")!.slice(0, 1000);
+
+    // //2) Authorization
+    const patientBookings = await getBookings(session.userId!);
+    const patientBookingIds = patientBookings.map(booking => booking.id);
+    if (!patientBookingIds.includes(bookingId))
+        throw new Error("You are not allowed to update this booking");
+
+    // 3) Building update data
+    const updatedFields = {
+        appointmentDate,
+        timeSlot,
+        purposeOfVisit,
+        updated_at: new Date(),
+    };
+
+    // 4) Mutation
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { data, error } = await supabase
+        .from("bookings")
+        .update(updatedFields)
+        .eq("id", bookingId)
+        .select()
+        .single();
+
+    // // 5) Error handling
+    if (error) {
+        console.error(error);
+        throw new Error("Booking could not be updated");
+    }
+
+    // // 6) Revalidation
+    const pathsToRevalidate = [
+        "/profile/bookings",
+        `/profile/bookings/edit/${bookingId}`,
+    ];
+    await Promise.all(pathsToRevalidate.map(path => revalidatePath(path)));
+
+    // // 7) Redirection
+    redirect("/profile/bookings");
+}
+
+export async function updatePatient(formData: FormData) {
+    // 1) Authentication
+    const session = await auth();
+    if (!session) throw new Error("You must be logged in");
+
+    //clean up form data
+    const gender = formData.get("gender");
+    const dateOfBirth = formData.get("dateOfBirth");
+
+    // // //2) Authorization
+    // const patientBookings = await getBookings(session.userId!);
+    // const patientBookingIds = patientBookings.map(booking => booking.id);
+    // if (!patientBookingIds.includes(bookingId))
+    //     throw new Error("You are not allowed to update this booking");
+
+    // 3) Building update data
+    const updatedFields = {
+        gender,
+        dateOfBirth,
+        updated_at: new Date(),
+    };
+
+    // 4) Mutation
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { data, error } = await supabase
+        .from("patients")
+        .update(updatedFields)
+        .eq("userId", session.userId)
+        .select()
+        .single();
+
+    // // 5) Error handling
+    if (error) {
+        console.error(error);
+        throw new Error("Profile could not be updated");
+    }
+
+    // // 6) Revalidation
+    revalidatePath("/profile/account");
 }
