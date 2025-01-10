@@ -1,6 +1,6 @@
 ## Bug: signOut({ redirectUrl: "/" }) works in development but not in production
 
-After users sign out, they are not redirected to the homepage. Although if they stay on the protected route momentarily after signing out, they are locked out from any meaningful interactions since the auth state is properly cleared. They'll be redirected to sign in as soon as they try to do anything.
+After users sign out while on protected route, they are not redirected to the homepage. Although if they stay on the protected route momentarily after signing out, they are locked out from any meaningful interactions since the auth state is properly cleared. They'll be redirected to sign in as soon as they try to do anything.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
