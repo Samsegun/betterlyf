@@ -33,6 +33,7 @@ function SideNavigation() {
     const router = useRouter();
     const { signOut } = useClerk();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleSignOut = async () => {
         await signOut();
         router.push("/");
@@ -59,8 +60,8 @@ function SideNavigation() {
 
                 <li className='mt-auto'>
                     <button
-                        // onClick={() => signOut({ redirectUrl: "/" })}
-                        onClick={handleSignOut}
+                        onClick={() => signOut({ redirectUrl: "/" })}
+                        // onClick={handleSignOut}
                         className='py-3 px-5 hover:bg-[#2c4673] transition-colors flex items-center gap-4 font-semibold w-full'>
                         <ArrowRightEndOnRectangleIcon className='h-5 w-5' />
                         <span>Sign out</span>

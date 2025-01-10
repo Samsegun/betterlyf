@@ -149,12 +149,6 @@ export async function updatePatient(formData: FormData) {
     const gender = formData.get("gender");
     const dateOfBirth = formData.get("dateOfBirth");
 
-    // // //2) Authorization
-    // const patientBookings = await getBookings(session.userId!);
-    // const patientBookingIds = patientBookings.map(booking => booking.id);
-    // if (!patientBookingIds.includes(bookingId))
-    //     throw new Error("You are not allowed to update this booking");
-
     // 3) Building update data
     const updatedFields = {
         gender,
