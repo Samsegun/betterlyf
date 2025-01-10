@@ -7,7 +7,7 @@ import {
     HomeIcon,
     UserIcon,
 } from "@heroicons/react/24/solid";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useClerk } from "@clerk/nextjs";
 
 const navLinks = [
@@ -30,7 +30,13 @@ const navLinks = [
 
 function SideNavigation() {
     const pathName = usePathname();
+    const router = useRouter();
     const { signOut } = useClerk();
+
+    const handleSignOut = async () => {
+        await signOut();
+        router.push("/");
+    };
 
     return (
         <nav className='border-r border-primary-900'>
@@ -53,7 +59,8 @@ function SideNavigation() {
 
                 <li className='mt-auto'>
                     <button
-                        onClick={() => signOut({ redirectUrl: "/" })}
+                        // onClick={() => signOut({ redirectUrl: "/" })}
+                        onClick={handleSignOut}
                         className='py-3 px-5 hover:bg-[#2c4673] transition-colors flex items-center gap-4 font-semibold w-full'>
                         <ArrowRightEndOnRectangleIcon className='h-5 w-5' />
                         <span>Sign out</span>

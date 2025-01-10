@@ -22,6 +22,8 @@ export function EditSelectedDate({
         setEditedDate(selected);
     };
 
+    console.log(dateToEdit);
+
     return (
         <div>
             <p className='text-lg md:text-2xl py-8 px-12'>Edit selected date</p>
@@ -32,6 +34,7 @@ export function EditSelectedDate({
                     selected={dateToEdit}
                     onSelect={handleSelect}
                     showOutsideDays
+                    defaultMonth={dateToEdit}
                     modifiersClassNames={{
                         selected: "my-selected",
                         today: "my-today",
