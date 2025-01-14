@@ -23,11 +23,11 @@ function DeleteBooking({
     return (
         <button
             onClick={handleDelete}
-            className='group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900'>
+            className='flex items-center justify-center md:justify-normal gap-2 uppercase md:text-xs font-bold flex-grow px-3 transition-colors lg:hover:bg-red-700'>
             {!isPending ? (
                 <>
                     {" "}
-                    <TrashIcon className='h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors' />
+                    <TrashIcon className='h-5 w-5 transition-colors' />
                     <span className='mt-1'>Delete</span>
                 </>
             ) : (

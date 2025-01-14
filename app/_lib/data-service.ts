@@ -72,6 +72,7 @@ export async function getBooking(id: number): Promise<BookingType> {
 
     return data;
 }
+
 export async function getPatient(userId: string): Promise<PatientType> {
     const { data, error } = await supabase
         .from("patients")

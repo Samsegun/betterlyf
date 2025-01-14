@@ -13,6 +13,15 @@
 }
 
 @layer components {
+    .profile-nav {
+        @apply flex flex-row items-center justify-center lg:justify-normal lg:items-stretch
+         lg:flex-col gap-2 h-full text-lg;
+    }
+
+    .profile-nav-item {
+        @apply flex flex-col items-center text-sm gap-2 lg:flex-row lg:text-base;
+    }
+
     .spinner {
         margin: 3.2rem auto 1.6rem;
         width: 60px;

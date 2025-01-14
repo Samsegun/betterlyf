@@ -36,8 +36,8 @@ export default function RootLayout({
                     <div className='min-h-screen flex flex-col'>
                         <Header />
 
-                        <div className='px-6 md:px-8 py-12 flex-1'>
-                            <main className='container mx-auto mt-16 '>
+                        <div className='md:px-8 py-12 flex-1'>
+                            <main className='container max-w-7xl px-4 md:px-6 mx-auto mt-16'>
                                 <UserProvider>
                                     <BookingProvider>
                                         {children}

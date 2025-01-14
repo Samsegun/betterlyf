@@ -6,6 +6,12 @@ import { SpecialistFilter } from "../_types";
 
 export const metadata: Metadata = {
     title: `Find a Specialist`,
+    description: `we connect you with experienced
+                            healthcare professionals across various specialties
+                            to ensure you receive the care you deserve. whether
+                            you're looking for a general check-up or
+                            specialized medical attention, our trusted experts
+                            are here to help.`,
 };
 
 async function Page({
@@ -22,14 +28,14 @@ async function Page({
 
     return (
         <div>
-            <div className='py-8'>
+            <div className='py-8 mx-auto max-w-6xl'>
                 <section>
                     <article>
-                        <h1 className='font-medium text-4xl md:text-5xl'>
+                        <h1 className='font-medium text-3xl md:text-5xl'>
                             Find the Right Specialist for Your Needs
                         </h1>
 
-                        <p className='my-4 text-lg lg:text-xl leading-8 lg:leading-9'>
+                        <p className='my-4 md:text-lg lg:text-xl leading-8 lg:leading-9'>
                             At Betterlyf, we connect you with experienced
                             healthcare professionals across various specialties
                             to ensure you receive the care you deserve. Whether

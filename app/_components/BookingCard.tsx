@@ -32,8 +32,8 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
     const time = format(date, "h:mm a");
 
     return (
-        <div className='flex border border-primary-800'>
-            <div className='relative h-32 aspect-square'>
+        <div className='flex flex-col md:flex-row border'>
+            <div className='relative h-32 aspect-square hidden xl:block'>
                 <Image
                     src={dent}
                     alt={`Dr. ${specialists?.fullName}`}
@@ -42,9 +42,9 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
                 />
             </div>
 
-            <div className='flex-grow px-6 py-3 flex flex-col'>
-                <div className='flex items-center justify-between'>
-                    <h3 className='text-xl font-semibold'>
+            <div className='flex-grow px-3 md:px-6 py-3 flex flex-col'>
+                <div className='flex lg:items-center gap-2 justify-between'>
+                    <h3 className='text-lg lg:text-xl font-semibold'>
                         Booking with Dr.{" "}
                         <span className='capitalize'>
                             {specialists?.fullName}
@@ -62,7 +62,7 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
                     )}
                 </div>
 
-                <p className='text-lg text-primary-300'>
+                <p className='text-sm lg:text-lg mt-2 lg:mt-0'>
                     {format(new Date(appointmentDate), "EEE, MMM dd yyyy")} (
                     {isToday(new Date(appointmentDate))
                         ? "Today"
@@ -70,38 +70,39 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
                     ) @ {time}
                 </p>
 
-                <div className='flex gap-5 mt-auto items-baseline'>
-                    <p className='text-xl font-semibold text-accent-400'>
-                        #
-                        {new Intl.NumberFormat().format(
-                            Number(specialists?.price)
-                        )}
-                    </p>
-                    <p className='text-primary-300'>&bull;</p>
-                    <p className='text-lg text-primary-300'>status: {status}</p>
-                    <p className='ml-auto text-sm text-primary-400'>
+                <div
+                    className='flex xl:gap-5 mt-4 xl:mt-auto items-baseline
+                 flex-col md:flex-row md:gap-2 gap-1'>
+                    <div className='flex items-center gap-2'>
+                        <p className='lg:text-xl font-semibold'>
+                            #
+                            {new Intl.NumberFormat().format(
+                                Number(specialists?.price)
+                            )}
+                        </p>
+                        <p>&bull;</p>
+                        <p className='lg:text-lg'>Status: {status}</p>
+                    </div>
+
+                    <p className='md:ml-auto text-sm'>
                         Booked{" "}
                         {format(new Date(created_at), "EEE, MMM dd yyyy, p")}
                     </p>
                 </div>
             </div>
 
-            <div className='flex flex-col border-l border-primary-800 w-[100px]'>
-                {!isPast(appointmentDate) ? (
-                    <>
-                        <Link
-                            href={`/profile/bookings/edit/${bookingId}`}
-                            className='group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900'>
-                            <PencilSquareIcon className='h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors' />
-                            <span className='mt-1'>Edit</span>
-                        </Link>
-                        <DeleteBooking
-                            onDelete={onDelete}
-                            bookingId={bookingId}
-                        />
-                    </>
-                ) : null}
-            </div>
+            {!isPast(appointmentDate) ? (
+                <div className='flex md:flex-col border-t md:border-t-0 md:border-l h-16 md:h-auto md:w-[100px] bg-[#36558a]'>
+                    <Link
+                        href={`/profile/bookings/edit/${bookingId}`}
+                        className='flex items-center justify-center md:justify-normal gap-2 uppercase md:text-xs font-bold border-r
+                             md:border-r-0 md:border-b flex-grow px-3 transition-colors lg:hover:bg-[#2c4673]'>
+                        <PencilSquareIcon className='h-5 w-5 transition-colors' />
+                        <span className='mt-1'>Edit</span>
+                    </Link>
+                    <DeleteBooking onDelete={onDelete} bookingId={bookingId} />
+                </div>
+            ) : null}
         </div>
     );
 }

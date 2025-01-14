@@ -43,10 +43,10 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
 
     return (
         <div className='border-t-2 mt-8 lg:mt-0 lg:border-t-0 grid scale-[1.01]'>
-            <div className='px-8 lg:px-16 py-2 flex flex-wrap gap-2  justify-between items-center'>
+            <div className='px-8 lg:px-16 py-2 flex flex-wrap gap-2 justify-between items-center'>
                 <p>Logged in as</p>
 
-                <div className='flex gap-4 items-center'>
+                <div className='flex gap-2 md:gap-4 items-center'>
                     <img
                         // Important to display google profile images
                         referrerPolicy='no-referrer'
@@ -60,7 +60,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
 
             <form
                 action={handleSubmit}
-                className='py-10 px-8 lg:px-16 md:text-lg flex gap-5 flex-col'>
+                className='py-10 px-6 md:px-8 lg:px-16 md:text-lg flex gap-5 flex-col'>
                 <div className='space-y-2'>
                     <label htmlFor='fullName'>Full Name</label>
                     <input

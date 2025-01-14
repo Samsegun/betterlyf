@@ -12,7 +12,7 @@ export function EditProfileForm({ patient }: { patient: PatientType }) {
         <div className='rounded-lg shadow-2xl'>
             <form
                 action={updatePatient}
-                className='bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col'>
+                className='py-8 px-6 md:px-12 text-lg flex gap-6 flex-col'>
                 <div className='space-y-2'>
                     <label htmlFor='fullName'>Full Name</label>
                     <input

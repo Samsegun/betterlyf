@@ -54,7 +54,7 @@ function Filter() {
 function Button({ filter, handleFilter, activeFilter, children }: ButtonProps) {
     return (
         <button
-            className={`px-5 py-2 hover:text-gray-200 capitalize ${
+            className={`px-5 py-2 lg:hover:text-gray-200 capitalize ${
                 filter === activeFilter ? "bg-blue text-[#ffcaa5]" : ""
             }`}
             onClick={() => handleFilter(filter)}>

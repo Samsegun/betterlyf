@@ -3,9 +3,13 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import {
+    ArrowRightEndOnRectangleIcon,
+    Bars3Icon,
+    XMarkIcon,
+} from "@heroicons/react/24/solid";
 import ActiveLink from "./ActiveLink";
-import { SignedIn } from "@clerk/nextjs";
+import { SignedIn, useClerk } from "@clerk/nextjs";
 import SignIn from "./SignIn";
 
 const links = [
@@ -24,6 +28,7 @@ const UserButton = dynamic(
 
 function Navigation() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { signOut, session } = useClerk();
     const pathName = usePathname();
 
     useEffect(() => {
@@ -81,6 +86,7 @@ function Navigation() {
                 })}
             </ul>
 
+            {/* mobile menu */}
             {menuOpen && (
                 <>
                     {/* Backdrop */}
@@ -88,28 +94,67 @@ function Navigation() {
                         className='fixed inset-0 bg-black opacity-50 z-30'
                         onClick={() => setMenuOpen(false)}></div>
 
-                    {/* mobile menu */}
                     <div
                         className='fixed top-0 left-0 w-2/3 h-full bg-white shadow-lg
-                     z-40 flex flex-col gap-8 p-4 text-[#0398CA]'>
+                     z-40 flex flex-col gap-8 p-4 text-primary-blue'>
                         <button
                             className='self-end mb-4 font-bold focus:outline-none'
                             onClick={() => setMenuOpen(false)}
                             aria-label='Close Menu'>
-                            <XMarkIcon className='w-6 h-6 text-[#0398CA] font-bold' />
+                            <XMarkIcon className='w-6 h-6 text-primary-blue font-bold' />
                         </button>
 
-                        <ul className='space-y-8 text-center font-medium'>
-                            {links.map(link => (
-                                <li key={link.text} className='capitalize'>
-                                    <ActiveLink
-                                        href={link.href}
-                                        className='block'
-                                        activeClassName='bg-gray-50 shadow-xl py-2'>
-                                        {link.text}
-                                    </ActiveLink>
-                                </li>
-                            ))}
+                        <ul className='space-y-10 text-center font-medium'>
+                            {links.map(link => {
+                                const isProfileLink = link.text === "profile";
+
+                                return (
+                                    <li key={link.text} className='capitalize'>
+                                        {isProfileLink ? (
+                                            session !== null ? (
+                                                <>
+                                                    {/* Render profile link for signed-in users */}
+                                                    <ActiveLink
+                                                        href={link.href}
+                                                        className='block'
+                                                        activeClassName='bg-gray-50 shadow-xl py-2'>
+                                                        {link.text}
+                                                    </ActiveLink>
+
+                                                    {/* Sign out button */}
+                                                    <SignedIn>
+                                                        <button
+                                                            onClick={() =>
+                                                                signOut({
+                                                                    redirectUrl:
+                                                                        "/",
+                                                                })
+                                                            }
+                                                            className='flex items-center gap-2 justify-center w-full mt-8'>
+                                                            <ArrowRightEndOnRectangleIcon className='h-5 w-5' />
+                                                            <span>
+                                                                Sign out
+                                                            </span>
+                                                        </button>
+                                                    </SignedIn>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {/* Sign in button for signed-out users */}
+                                                    <SignIn styles='py-2 px-4 lg:py-4 lg:px-8' />
+                                                </>
+                                            )
+                                        ) : (
+                                            <ActiveLink
+                                                href={link.href}
+                                                className='block'
+                                                activeClassName='bg-gray-50 shadow-xl py-2'>
+                                                {link.text}
+                                            </ActiveLink>
+                                        )}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 </>

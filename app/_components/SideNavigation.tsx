@@ -40,25 +40,25 @@ function SideNavigation() {
     };
 
     return (
-        <nav className='border-r border-primary-900'>
-            <ul className='flex flex-col gap-2 h-full text-lg'>
+        <nav className='lg:border-r rounded-lg shadow-2xl lg:rounded-none lg:shadow-none'>
+            <ul className='profile-nav'>
                 {navLinks.map(link => (
                     <li key={link.name}>
                         <Link
-                            className={`py-3 px-5 hover:bg-[#2c4673] transition-colors flex items-center
-                                 gap-4 font-semibold rounded-tl-xl rounded-bl-xl ${
+                            className={`profile-nav-item py-3 px-5 lg:hover:bg-[#2c4673] transition-colors flex items-center
+                                 md:gap-4 font-semibold  ${
                                      pathName === link.href
-                                         ? "bg-[#36558a]"
+                                         ? "bg-[#36558a] lg:rounded-tl-xl lg:rounded-bl-xl"
                                          : ""
                                  }`}
                             href={link.href}>
-                            {link.icon}
+                            <span>{link.icon}</span>
                             <span>{link.name}</span>
                         </Link>
                     </li>
                 ))}
 
-                <li className='mt-auto'>
+                <li className='mt-auto hidden lg:block'>
                     <button
                         onClick={() => signOut({ redirectUrl: "/" })}
                         // onClick={handleSignOut}

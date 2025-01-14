@@ -7,7 +7,7 @@ async function SpecialistList({ filter }: { filter: SpecialistFilter }) {
     const specialists = await getSpecialists();
 
     return (
-        <div className='grid sm:grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-12 xl:gap-14'>
+        <div className='px-2 md:px-0 grid sm:grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-12 xl:gap-14'>
             {filterSpecialists(filter, specialists).map(specialist => (
                 <SpecialistCard key={specialist.id} specialist={specialist} />
             ))}

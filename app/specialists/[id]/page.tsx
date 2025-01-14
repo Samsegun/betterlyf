@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import Specialist from "@/app/_components/Specialist";
+import SpecialistInfo from "@/app/_components/SpecialistInfo";
 import Spinner from "@/app/_components/Spinner";
 import Booking from "@/app/_components/Booking";
 import { getSpecialist, getSpecialists } from "@/app/_lib/data-service";
@@ -40,12 +40,14 @@ async function Page(props: { params: Promise<{ id: string }> }) {
     if (!specialist) notFound();
 
     return (
-        <div className='py-8'>
-            <Specialist specialist={specialist} />
+        <div className='py-8 mx-auto max-w-6xl'>
+            <SpecialistInfo specialist={specialist} />
 
             <div className='mt-20 rounded-lg shadow-2xl'>
                 <h2 className='text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-accent-400 mb-10'>
-                    Book Dr. {specialist.fullName} today.
+                    Book Dr.{" "}
+                    <span className='capitalize'>{specialist.fullName}</span>{" "}
+                    Today.
                 </h2>
 
                 {/* <ProfileImageUpload /> */}
