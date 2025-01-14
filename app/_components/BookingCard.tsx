@@ -8,15 +8,24 @@ import {
     isToday,
     parse,
     parseISO,
+    startOfDay,
 } from "date-fns";
 import DeleteBooking from "./DeleteBooking";
 import { BookingCardProps } from "../_types";
 import dent from "@/public/specialists/dent2.jpg";
 
-export const formatDistanceFromNow = (dateStr: string) =>
-    formatDistance(parseISO(dateStr), new Date(), {
+// export const formatDistanceFromNow = (dateStr: string) =>
+//     formatDistance(parseISO(dateStr), new Date(), {
+//         addSuffix: true,
+//     }).replace("about ", "");
+
+const formatDistanceFromNow = (dateStr: string) => {
+    const appointmentDate = startOfDay(parseISO(dateStr));
+    const currentDate = startOfDay(new Date());
+    return formatDistance(appointmentDate, currentDate, {
         addSuffix: true,
     }).replace("about ", "");
+};
 
 function BookingCard({ onDelete, booking }: BookingCardProps) {
     const {
