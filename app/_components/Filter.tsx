@@ -32,6 +32,10 @@ function Filter() {
         const params = new URLSearchParams(searchParams);
 
         params.set("specialists", filter);
+
+        // Reset the page to 1 whenever we change filters
+        params.set("page", "1");
+
         router.replace(`${pathName}?${params.toString()}`, { scroll: false });
     }
 
