@@ -1,8 +1,6 @@
 import { Metadata } from "next";
-import Filter from "../_components/Filter";
-import SpecialistList from "../_components/SpecialistList";
 import { SpecialistFilter } from "../_types";
-// import { getSpecialists } from "../_lib/data-service";
+import FilteredSpecialists from "../_components/FilteredSpecialists";
 
 export const metadata: Metadata = {
     title: `Find a Specialist`,
@@ -17,14 +15,11 @@ export const metadata: Metadata = {
 async function Page({
     searchParams,
 }: {
-    searchParams?: Promise<{ specialists?: SpecialistFilter }>;
+    searchParams?: Promise<{ specialists?: SpecialistFilter; page: number }>;
 }) {
     const entries = await searchParams;
     const filter = entries?.specialists ?? "all";
-
-    // const specialists = await getSpecialists();
-
-    // console.log(specialists);
+    const currentPage = Number(entries?.page) || 1;
 
     return (
         <div>
@@ -49,11 +44,10 @@ async function Page({
                 </section>
 
                 <section className='mt-12'>
-                    <div className='flex justify-end mb-10 lg:mb-12'>
-                        <Filter />
-                    </div>
-
-                    <SpecialistList filter={filter} />
+                    <FilteredSpecialists
+                        filter={filter}
+                        currentPage={currentPage}
+                    />
                 </section>
             </div>
         </div>

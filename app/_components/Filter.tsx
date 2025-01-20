@@ -2,17 +2,18 @@
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import { SpecialistFilter } from "../_types";
 
 type ButtonProps = {
-    filter: string;
-    handleFilter: (filter: string) => void;
+    filter: SpecialistFilter;
+    handleFilter: (filter: SpecialistFilter) => void;
     activeFilter: string;
     children: ReactNode;
 };
 
-const filters = [
+const filters: SpecialistFilter[] = [
     "all",
-    "gp",
+    "general practitioner",
     "pediatrician",
     "gynecologist",
     "dentist",
@@ -27,7 +28,7 @@ function Filter() {
 
     const activeFilter = searchParams.get("specialists") ?? "all";
 
-    function handleFilter(filter: string) {
+    async function handleFilter(filter: SpecialistFilter) {
         const params = new URLSearchParams(searchParams);
 
         params.set("specialists", filter);
@@ -44,7 +45,7 @@ function Filter() {
                     filter={item}
                     handleFilter={handleFilter}
                     activeFilter={activeFilter}>
-                    {item === "gp" ? "general practitioner (GP)" : item}
+                    {item}
                 </Button>
             ))}
         </div>

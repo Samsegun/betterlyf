@@ -24,7 +24,7 @@ function SpecialistCard({ specialist }: SpecialistCardProps) {
                     src={dent}
                     fill
                     alt={`dr. ${fullName}`}
-                    className='object-cover object-center border-white sm:border-r'
+                    className='object-cover object-center '
                 />
             </figure>
 

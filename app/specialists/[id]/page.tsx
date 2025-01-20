@@ -44,8 +44,8 @@ async function Page(props: { params: Promise<{ id: string }> }) {
             <SpecialistInfo specialist={specialist} />
 
             <div className='mt-20 rounded-lg shadow-2xl'>
-                <h2 className='text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-accent-400 mb-10'>
-                    Book Dr.{" "}
+                <h2 className='text-2xl md:text-3xl lg:text-4xl font-semibold text-center px-2 md:px-0 mb-10'>
+                    Book with Dr.{" "}
                     <span className='capitalize'>{specialist.fullName}</span>{" "}
                     Today.
                 </h2>

@@ -39,10 +39,10 @@ export type PatientType = {
 
 export const specialistTypes = [
     "all",
-    "gp",
+    "general practitioner",
     "pediatrician",
     "gynecologist",
-    "Dentist",
+    "dentist",
     "ophthalmologist",
     "physiotherapist",
 ] as const;
