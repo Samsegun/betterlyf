@@ -40,7 +40,7 @@ function SideNavigation() {
     };
 
     return (
-        <nav className='lg:border-r rounded-lg shadow-2xl lg:rounded-none lg:shadow-none'>
+        <nav className='lg:my-12 lg:border-r rounded-lg shadow-2xl lg:rounded-none lg:shadow-none'>
             <ul className='profile-nav'>
                 {navLinks.map(link => (
                     <li key={link.name}>

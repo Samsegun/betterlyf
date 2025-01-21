@@ -27,6 +27,7 @@ function Filter() {
     const pathName = usePathname();
 
     const activeFilter = searchParams.get("specialists") ?? "all";
+    const isPage = searchParams.get("page");
 
     async function handleFilter(filter: SpecialistFilter) {
         const params = new URLSearchParams(searchParams);
@@ -34,7 +35,7 @@ function Filter() {
         params.set("specialists", filter);
 
         // Reset the page to 1 whenever we change filters
-        params.set("page", "1");
+        if (isPage) params.set("page", "1");
 
         router.replace(`${pathName}?${params.toString()}`, { scroll: false });
     }

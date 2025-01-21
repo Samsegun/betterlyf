@@ -40,8 +40,10 @@ async function Page(props: { params: Promise<{ id: string }> }) {
     if (!specialist) notFound();
 
     return (
-        <div className='py-8 mx-auto max-w-6xl'>
-            <SpecialistInfo specialist={specialist} />
+        <div className='py-12 mx-auto max-w-6xl'>
+            <Suspense fallback={<Spinner />}>
+                <SpecialistInfo specialist={specialist} />
+            </Suspense>
 
             <div className='mt-20 rounded-lg shadow-2xl'>
                 <h2 className='text-2xl md:text-3xl lg:text-4xl font-semibold text-center px-2 md:px-0 mb-10'>
