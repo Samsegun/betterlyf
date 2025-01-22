@@ -58,13 +58,7 @@ export default function RootLayout({
                         </footer>
                     </div>
 
-                    <Analytics
-                        mode={
-                            process.env.NODE_ENV === "production"
-                                ? "production"
-                                : "development"
-                        }
-                    />
+                    <Analytics debug={false} />
                 </body>
             </html>
         </ClerkProvider>

@@ -71,7 +71,7 @@ function Navigation() {
                                     </SignedIn>
 
                                     {/* when signed out */}
-                                    <SignIn styles='py-2 px-4 lg:py-4 lg:px-8' />
+                                    <SignIn styles='py-2 px-4 lg:py-2 lg:px-8' />
                                 </>
                             ) : (
                                 <ActiveLink

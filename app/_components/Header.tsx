@@ -6,7 +6,7 @@ async function Header() {
     return (
         <header
             className='fixed top-0 left-0 right-0 z-10 bg-[#24385c]
-         px-4 py-5 md:px-9 md:py-6 shadow-md '>
+         px-4 py-5 md:px-9 md:py-3 shadow-md '>
             <div className='flex items-center mx-auto justify-between max-w-7xl'>
                 <Logo />
 
