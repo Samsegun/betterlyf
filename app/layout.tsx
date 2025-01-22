@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
 
 import "./_styles/globals.css";
 import Header from "./_components/Header";
@@ -56,6 +57,14 @@ export default function RootLayout({
                             </p>
                         </footer>
                     </div>
+
+                    <Analytics
+                        mode={
+                            process.env.NODE_ENV === "production"
+                                ? "production"
+                                : "development"
+                        }
+                    />
                 </body>
             </html>
         </ClerkProvider>
