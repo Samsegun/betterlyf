@@ -130,17 +130,12 @@ export async function getBooking(id: number): Promise<BookingType> {
     return data;
 }
 
-export async function getPatient(userId: string): Promise<PatientType> {
-    const { data, error } = await supabase
+export async function getPatient(userId: string): Promise<PatientType | null> {
+    const { data } = await supabase
         .from("patients")
         .select("id, gender, dateOfBirth")
         .eq("userId", userId)
         .single();
-
-    if (error) {
-        console.error(error);
-        throw new Error("Patient could not get loaded");
-    }
 
     return data;
 }

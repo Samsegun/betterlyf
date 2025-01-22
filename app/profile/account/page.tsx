@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { EditProfileForm } from "@/app/_components/EditProfileForm";
 import { getPatient } from "@/app/_lib/data-service";
+import Link from "next/link";
 
 export default async function Page() {
     const { userId } = await auth();
@@ -12,7 +13,19 @@ export default async function Page() {
                 Edit Profile
             </h2>
 
-            <EditProfileForm patient={patient} />
+            {patient ? (
+                <EditProfileForm patient={patient} />
+            ) : (
+                <p className='text-lg leading-7'>
+                    You have no Profile yet. Book now with one of our{" "}
+                    <Link
+                        className='underline text-accent-500'
+                        href='/specialists'>
+                        highly rated specialists{"  "}
+                    </Link>
+                    to create a profile.
+                </p>
+            )}
         </div>
     );
 }

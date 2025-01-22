@@ -15,7 +15,7 @@ export default async function Page() {
             </h2>
 
             {bookings.length === 0 ? (
-                <p className='text-lg'>
+                <p className='text-lg leading-7'>
                     You have no bookings yet. Check out our{" "}
                     <Link
                         className='underline text-accent-500'

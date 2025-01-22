@@ -1,10 +1,20 @@
 import Image from "next/image";
 import book from "@/public/betterlyf-help.jpg";
 import expert from "@/public/betterlyf-help2.jpg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: `About Betterlyf`,
+    description: `we believe that everyone deserves to
+                            live a fulfilling and balanced life. We provide
+                            healthcare professionals with a dedicated platform
+                            to onboard, manage their services, and focus on
+                            delivering exceptional care.`,
+};
 
 function Page() {
     return (
-        <section className='py-16 mx-auto max-w-6xl space-y-36'>
+        <section className='py-10 lg:py-16 mx-auto max-w-6xl space-y-36'>
             <div className='flex flex-col lg:flex-row items-center gap-12'>
                 {/* Image Section */}
                 <div className='w-full lg:w-1/2'>

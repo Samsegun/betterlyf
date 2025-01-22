@@ -6,11 +6,10 @@ import {
     MapPinIcon,
     StarIcon,
 } from "@heroicons/react/24/solid";
-import dent from "@/public/specialists/dent2.jpg";
 
 function SpecialistInfo({ specialist }: { specialist: SpecialistType }) {
     const {
-        // imageUrl,
+        imageUrl,
         fullName,
         bio,
         specialization,
@@ -22,14 +21,16 @@ function SpecialistInfo({ specialist }: { specialist: SpecialistType }) {
         <div className='hero rounded-lg shadow-2xl'>
             <div className='hero-content flex-col lg:flex-row lg:gap-10 xl:gap-16'>
                 {/* <figure className='relative h-64'> */}
-                <Image
-                    src={dent}
-                    width={280}
-                    height={180}
-                    // fill
-                    className='rounded-lg shadow-2xl'
-                    alt={`${fullName}'s picture`}
-                />
+                {imageUrl && (
+                    <Image
+                        src={imageUrl!}
+                        width={280}
+                        height={180}
+                        // fill
+                        className='rounded-lg shadow-2xl'
+                        alt={`${fullName}'s picture`}
+                    />
+                )}
                 {/* </figure> */}
 
                 <div className='mt-8 lg:mt-0 lg:basis-1/2'>

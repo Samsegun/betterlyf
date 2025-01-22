@@ -35,7 +35,7 @@ export async function createBooking(
     if (error) {
         throw new Error("Error during upsert:", error);
     } else {
-        console.log("Patient record (inserted or unchanged)");
+        console.log("Patient record inserted or unchanged");
     }
 
     /* booking insertion flow section */
