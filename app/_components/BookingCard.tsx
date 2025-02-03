@@ -12,7 +12,6 @@ import {
 } from "date-fns";
 import DeleteBooking from "./DeleteBooking";
 import { BookingCardProps } from "../_types";
-import dent from "@/public/specialists/dent2.jpg";
 
 // export const formatDistanceFromNow = (dateStr: string) =>
 //     formatDistance(parseISO(dateStr), new Date(), {
@@ -44,7 +43,7 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
         <div className='flex flex-col md:flex-row border'>
             <div className='relative h-32 aspect-square hidden xl:block'>
                 <Image
-                    src={dent}
+                    src={specialists?.imageUrl ?? ""}
                     alt={`Dr. ${specialists?.fullName}`}
                     fill
                     className='object-cover border-r border-primary-800'

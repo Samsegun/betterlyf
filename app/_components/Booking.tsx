@@ -8,11 +8,6 @@ import DateSelector from "./DateSelector";
 import LoginMessage from "./LoginMessage";
 
 async function Booking({ specialist }: { specialist: SpecialistType }) {
-    // const [settings, bookedDates] = await Promise.all([
-    //     getSettings(),
-    //     getBookedDatesByCabinId(cabin.id),
-    // ]);
-
     const { sessionId } = await auth();
 
     return (

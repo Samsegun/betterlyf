@@ -40,6 +40,8 @@ export async function createBooking(
 
     /* booking insertion flow section */
     const appointmentDate = format(bookingData.appointmentDate!, "yyyy-MM-dd"); // Format date from react-day-picker
+
+    console.log(appointmentDate);
     const newBookingData = {
         ...bookingData,
         appointmentDate,
