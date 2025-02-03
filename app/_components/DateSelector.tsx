@@ -20,6 +20,8 @@ import { ResetDateButton } from "./ResetDateButton";
 function DateSelector({ specialist }: { specialist: SpecialistType }) {
     const { appointmentDay, setAppointmentDay } = useBooking();
 
+    console.log(appointmentDay);
+
     //
     const today = new Date();
     const isWeekend = (date: Date) => {
