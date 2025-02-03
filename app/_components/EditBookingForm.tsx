@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { parseISO } from "date-fns";
 import { updateBooking } from "../_lib/actions";
 import { EditSelectedDate } from "./EditSelectedDate";
 import SubmitButton from "./SubmitButton";
+import { useBooking } from "./BookingContext";
 
 type SelectedData = {
     timeSlot: string;
@@ -29,47 +29,32 @@ export function EditBookingForm({
     bookingId: number;
     selectedData: SelectedData;
 }) {
-    const [editedDate, setEditedDate] = useState<Date | undefined>(
-        parseISO(selectedData.selectedDay)
-    );
+    const { appointmentDay, resetAppointmentDay, handleDateSelection } =
+        useBooking();
+
     const { timeSlot, purposeOfVisit } = selectedData;
+    const editedDate = parseISO(selectedData.selectedDay);
+    const newAppointmentDay = appointmentDay ?? editedDate;
 
     const updateBookingnWithId = updateBooking.bind(
         null,
         bookingId,
-        editedDate
+        newAppointmentDay
     );
-
-    // const handleSubmit = async (formData: FormData) => {
-    //     // try {
-    //     const result = await updateBookingnWithId(formData);
-
-    //     // console.log(result);
-    //     // if (!result.success) {
-    //     //     setError(result.error?.message);
-    //     //     return;
-    //     // }
-    //     // // Only reset if booking was successful
-    //     // setError(null);
-    //     // resetAppointmentDay();
-
-    //     // router.push("/specialists/thankyou");
-    //     // } catch (err) {
-    //     //     setError(
-    //     //         err instanceof Error ? err.message : "Something went wrong"
-    //     //     );
-    //     // }
-    // };
 
     return (
         <div className='rounded-lg shadow-2xl'>
             <EditSelectedDate
                 editedDate={editedDate}
-                setEditedDate={setEditedDate}
+                appointmentDay={appointmentDay}
+                setEditedDate={handleDateSelection}
             />
 
             <form
-                action={(formData: FormData) => updateBookingnWithId(formData)}
+                action={(formData: FormData) => {
+                    updateBookingnWithId(formData);
+                    resetAppointmentDay();
+                }}
                 className='py-8 px-6 md:px-12 text-lg flex gap-6 flex-col'>
                 <div className='space-y-2'>
                     <label htmlFor='timeSlot'>Edit selected Time</label>

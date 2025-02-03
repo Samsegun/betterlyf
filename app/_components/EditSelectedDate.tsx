@@ -1,6 +1,5 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
 import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
 import "react-day-picker/dist/style.css";
@@ -8,15 +7,17 @@ import "react-day-picker/dist/style.css";
 const today = new Date();
 const isWeekend = (date: Date) => {
     const day = date.getDay();
-    return day === 0; // Sunday or Saturday
+    return day === 0; // Sunday
 };
 
 export function EditSelectedDate({
     editedDate: dateToEdit,
     setEditedDate,
+    appointmentDay,
 }: {
     editedDate: Date | undefined;
-    setEditedDate: Dispatch<SetStateAction<Date | undefined>>;
+    appointmentDay: Date | undefined;
+    setEditedDate: (date: Date | undefined) => void;
 }) {
     const handleSelect = (selected: Date | undefined) => {
         setEditedDate(selected);
@@ -29,10 +30,10 @@ export function EditSelectedDate({
             <div className='w-72 mx-auto'>
                 <DayPicker
                     mode='single'
-                    selected={dateToEdit}
+                    selected={appointmentDay ?? dateToEdit}
                     onSelect={handleSelect}
                     showOutsideDays
-                    defaultMonth={dateToEdit}
+                    defaultMonth={appointmentDay ?? dateToEdit}
                     modifiersClassNames={{
                         selected: "my-selected",
                         today: "my-today",

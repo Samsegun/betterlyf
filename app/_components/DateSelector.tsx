@@ -7,27 +7,16 @@ import { useBooking } from "./BookingContext";
 import { SpecialistType } from "../_types";
 import { ResetDateButton } from "./ResetDateButton";
 
-// function isAlreadyBooked(range, datesArr) {
-//     return (
-//         range.from &&
-//         range.to &&
-//         datesArr.some(date =>
-//             isWithinInterval(date, { start: range.from, end: range.to })
-//         )
-//     );
-// }
-
 function DateSelector({ specialist }: { specialist: SpecialistType }) {
     const { appointmentDay, handleDateSelection } = useBooking();
 
     const today = new Date();
     const isWeekend = (date: Date) => {
         const day = date.getDay();
-        return day === 0; // Sunday or Saturday
+        return day === 0; // Sunday
     };
 
     const handleSelect = (selected: Date | undefined) => {
-        // setAppointmentDay(selected);
         handleDateSelection(selected);
     };
 

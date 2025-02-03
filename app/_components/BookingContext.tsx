@@ -1,18 +1,10 @@
 "use client";
 
-import {
-    createContext,
-    Dispatch,
-    ReactNode,
-    SetStateAction,
-    useContext,
-    useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 interface Booking {
     appointmentDay: Date | undefined;
     handleDateSelection: (date: Date | undefined) => void;
-    setAppointmentDay: Dispatch<SetStateAction<Date | undefined>>;
     resetAppointmentDay: () => void;
 }
 
@@ -31,19 +23,11 @@ function BookingProvider({ children }: BookingProviderProps) {
     );
 
     const handleDateSelection = (date: Date | undefined) => {
-        // Create a new Date object and set the time to UTC midnight
+        // Create a new Date object
         const correctedDate = new Date(
             Date.UTC(date!.getFullYear(), date!.getMonth(), date!.getDate())
         );
 
-        // console.log("Original Date:", date); // Logs local timezone date
-        // console.log("Corrected UTC Date:", correctedDate); // Logs correct UTC date
-        // console.log(
-        //     "Formatted Date for DB:",
-        //     format(correctedDate, "yyyy-MM-dd")
-        // ); // Corrected for DB
-
-        // Save correctedDate in state or submit to Supabase
         setAppointmentDay(correctedDate);
     };
 
@@ -54,7 +38,6 @@ function BookingProvider({ children }: BookingProviderProps) {
             value={{
                 appointmentDay,
                 handleDateSelection,
-                setAppointmentDay,
                 resetAppointmentDay,
             }}>
             {children}
