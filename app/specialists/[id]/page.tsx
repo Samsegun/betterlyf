@@ -5,6 +5,7 @@ import SpecialistInfo from "@/app/_components/SpecialistInfo";
 import Spinner from "@/app/_components/Spinner";
 import Booking from "@/app/_components/Booking";
 import { getSpecialist, getSpecialists } from "@/app/_lib/data-service";
+import MoveBackButton from "@/app/_components/MoveBackButton";
 
 export async function generateMetadata({
     params,
@@ -41,6 +42,10 @@ async function Page(props: { params: Promise<{ id: string }> }) {
 
     return (
         <div className='py-12 mx-auto max-w-6xl'>
+            <p className='flex mb-4'>
+                <MoveBackButton />
+            </p>
+
             <Suspense fallback={<Spinner />}>
                 <SpecialistInfo specialist={specialist} />
             </Suspense>

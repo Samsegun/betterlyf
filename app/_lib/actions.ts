@@ -39,13 +39,8 @@ export async function createBooking(
         console.log("Patient record inserted or unchanged");
     }
 
-    // console.log(bookingData.appointmentDate);
     /* booking insertion flow section */
     const appointmentDate = format(bookingData.appointmentDate!, "yyyy-MM-dd"); // Format date from react-day-picker
-    // const utcDate = toZonedTime(bookingData.appointmentDate!, "UTC"); // Ensure UTC
-    // const appointmentDate = format(utcDate, "yyyy-MM-dd");
-
-    console.log(appointmentDate);
 
     const newBookingData = {
         ...bookingData,

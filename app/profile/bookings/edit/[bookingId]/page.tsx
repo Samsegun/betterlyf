@@ -3,6 +3,7 @@
 import { Metadata } from "next";
 import { getBooking } from "@/app/_lib/data-service";
 import { EditBookingForm } from "@/app/_components/EditBookingForm";
+import MoveBackButton from "@/app/_components/MoveBackButton";
 
 export const metadata: Metadata = {
     title: "Edit your booking",
@@ -21,6 +22,10 @@ export default async function Page(props: {
 
     return (
         <div>
+            <p className='flex mb-4'>
+                <MoveBackButton />
+            </p>
+
             <h2 className='font-semibold text-2xl text-accent-400 mb-7'>
                 Edit Booking #{id}
             </h2>
