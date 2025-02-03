@@ -25,6 +25,7 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
     const handleSubmit = async (formData: FormData) => {
         try {
             const result = await createBookingWithData(formData);
+
             if (!result.success) {
                 setError(result.error?.message);
                 return;

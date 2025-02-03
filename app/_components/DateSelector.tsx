@@ -18,11 +18,8 @@ import { ResetDateButton } from "./ResetDateButton";
 // }
 
 function DateSelector({ specialist }: { specialist: SpecialistType }) {
-    const { appointmentDay, setAppointmentDay } = useBooking();
+    const { appointmentDay, handleDateSelection } = useBooking();
 
-    console.log(appointmentDay);
-
-    //
     const today = new Date();
     const isWeekend = (date: Date) => {
         const day = date.getDay();
@@ -30,7 +27,8 @@ function DateSelector({ specialist }: { specialist: SpecialistType }) {
     };
 
     const handleSelect = (selected: Date | undefined) => {
-        setAppointmentDay(selected);
+        // setAppointmentDay(selected);
+        handleDateSelection(selected);
     };
 
     return (
