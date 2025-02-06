@@ -25,7 +25,7 @@ Betterlyf is a clinic booking app built using Next.js and Supabase. It allows pa
 
 ### Links
 
--   Live Site URL: [Betterlyf](https://www.betterlyf.vercel.app)
+-   Live Site URL: [Betterlyf](https://betterlyf.vercel.app)
 
 ## Features
 
