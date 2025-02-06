@@ -12,6 +12,7 @@ import {
 } from "date-fns";
 import DeleteBooking from "./DeleteBooking";
 import { BookingCardProps } from "../_types";
+import { formatCurrency } from "../_utils/helpers";
 
 // export const formatDistanceFromNow = (dateStr: string) =>
 //     formatDistance(parseISO(dateStr), new Date(), {
@@ -83,10 +84,7 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
                  flex-col md:flex-row md:gap-2 gap-1'>
                     <div className='flex items-center gap-2'>
                         <p className='lg:text-xl font-semibold'>
-                            #
-                            {new Intl.NumberFormat().format(
-                                Number(specialists?.price)
-                            )}
+                            {formatCurrency(specialists!.price)}
                         </p>
                         <p>&bull;</p>
                         <p className='lg:text-lg'>Status: {status}</p>

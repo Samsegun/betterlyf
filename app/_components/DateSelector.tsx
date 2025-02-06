@@ -6,6 +6,7 @@ import "react-day-picker/dist/style.css";
 import { useBooking } from "./BookingContext";
 import { SpecialistType } from "../_types";
 import { ResetDateButton } from "./ResetDateButton";
+import { formatCurrency } from "../_utils/helpers";
 
 function DateSelector({ specialist }: { specialist: SpecialistType }) {
     const { appointmentDay, handleDateSelection } = useBooking();
@@ -48,10 +49,7 @@ function DateSelector({ specialist }: { specialist: SpecialistType }) {
                 <div className='flex'>
                     <p className='md:text-2xl'>
                         <span className=''>
-                            #
-                            {new Intl.NumberFormat().format(
-                                Number(specialist.price)
-                            )}
+                            {formatCurrency(specialist.price)}
                         </span>
 
                         <span className=''>/booking</span>
