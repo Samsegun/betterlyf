@@ -1,40 +1,63 @@
-## Bug: signOut({ redirectUrl: "/" }) works in development but not in production
+# Betterlyf Admin Panel -
 
-After users sign out while on protected route, they are not redirected to the homepage. Although if they stay on the protected route momentarily after signing out, they are locked out from any meaningful interactions since the auth state is properly cleared. They'll be redirected to sign in as soon as they try to do anything.
+This is the client app for the [Betterlyf Admin Panel App](https://www.betterlyf-admin.vercel.app/). The repo can be found here [Betterlyf Github repo](https://github.com/Samsegun/betterlyf-admin)
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Table of contents
 
-## Getting Started
+-   [Overview](#overview)
+    -   [Screenshot](#screenshot)
+    -   [Links](#links)
+-   [Features](#features)
+    -   [Patients](#patients)
+    -   [Other Features](#other-features)
+    -   [Built with](#built-with)
+    -   [Continued development](#continued-development)
+-   [Author](#author)
+<!-- -   [Acknowledgments](#acknowledgments) -->
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Betterlyf is a clinic booking app built using Next.js and Supabase. It allows patients to book appointments with specialists, while admins and specialists manage their profiles and appointments through a separate [React-based admin panel](https://github.com/Samsegun/betterlyf-admin)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Screenshot
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![screenshot](./betterlyf-client.jpeg)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Links
 
-## Learn More
+-   Live Site URL: [Betterlyf](https://www.betterlyf.vercel.app)
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Patients
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+-   Browse & book appointments with specialists
+-   View and manage bookings
+-   Secure authentication via Clerk
+-   Availability & time slots (9 AM - 5 PM) (constraints was added to bookings schema on supabase to enable the uniqueness of each booking i.e. two bookings can't have the same specialist, time-slot and date)
+-   Booking statuses: Pending, Confirmed, Completed, No-Show and Cancelled
 
-## Deploy on Vercel
+### Other Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-   Date selection using react-day-picker & date-fns
+-   Pagination and Filter for specialists
+-   Deployment on Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Built with
+
+-   Frontend: Next.js and TypeScript
+-   Database: Supabase
+-   Authentication: Clerk
+-   Date-picker: react-day-picker
+-   Dates Functionality: date-fns
+-   Styling: tailwind-css
+
+### Continued development
+
+-   Improve the composition of colors and layout
+
+## Author
+
+-   Github - [Samuel Oyebade](https://github.com/Samsegun/)
+-   Gmail - [Oyebade Sam](mailto:oyebadesegunsam@gmail.com)
+-   X (Twitter) - [@samsegun10](https://www.twitter.com/samsegun10)
