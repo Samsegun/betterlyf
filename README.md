@@ -1,4 +1,4 @@
-# Betterlyf Admin Panel -
+# Betterlyf Web App
 
 This is the client app for the [Betterlyf Admin Panel App](https://www.betterlyf-admin.vercel.app/). The repo can be found here [Betterlyf Github repo](https://github.com/Samsegun/betterlyf-admin)
 
