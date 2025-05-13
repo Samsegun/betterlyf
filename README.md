@@ -2,6 +2,8 @@
 
 This is the client app for the [Betterlyf Admin Panel App](https://www.betterlyf-admin.vercel.app/). The repo can be found here [Betterlyf Github repo](https://github.com/Samsegun/betterlyf-admin)
 
+### If you're a UI/UX designer and would like to redesign these app, please reach out to me.
+
 ## Table of contents
 
 -   [Overview](#overview)
