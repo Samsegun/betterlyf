@@ -50,7 +50,7 @@ export default function RootLayout({
                         <footer>
                             <p className=' flex items-center mx-auto justify-center gap-2 font-bold'>
                                 <span>
-                                    &copy; {new Date().getUTCFullYear()}
+                                    &copy; {new Date().getUTCFullYear() + 1}
                                 </span>
 
                                 <span>BetterLyf</span>
