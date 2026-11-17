@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 
-import "./_styles/globals.css";
+import { BookingProvider } from "./_components/BookingContext";
 import Header from "./_components/Header";
 import { UserProvider } from "./_components/UserContext";
-import { BookingProvider } from "./_components/BookingContext";
+import "./_styles/globals.css";
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
@@ -30,15 +30,16 @@ export default function RootLayout({
 }>) {
     return (
         <ClerkProvider>
-            <html lang='en'>
+            <html lang="en">
                 <body
                     className={`${roboto.className} antialiased relative bg text-white
-                 `}>
-                    <div className='min-h-screen flex flex-col'>
+                 `}
+                >
+                    <div className="min-h-screen flex flex-col">
                         <Header />
 
-                        <div className='md:px-8 py-12 flex-1'>
-                            <main className='container max-w-7xl px-4 md:px-6 mx-auto mt-16'>
+                        <div className="md:px-8 py-12 flex-1">
+                            <main className="container max-w-7xl px-4 md:px-6 mx-auto mt-16">
                                 <UserProvider>
                                     <BookingProvider>
                                         {children}
@@ -48,9 +49,9 @@ export default function RootLayout({
                         </div>
 
                         <footer>
-                            <p className=' flex items-center mx-auto justify-center gap-2 font-bold'>
+                            <p className=" flex items-center mx-auto justify-center gap-2 font-bold">
                                 <span>
-                                    &copy; {new Date().getUTCFullYear() + 1}
+                                    &copy; {new Date().getUTCFullYear()}
                                 </span>
 
                                 <span>BetterLyf</span>
