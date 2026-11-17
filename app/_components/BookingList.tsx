@@ -9,14 +9,13 @@ function BookingList({ bookings }: { bookings: BookingsType[] }) {
     const [optimisticBookings, optimisticDelete] = useOptimistic(
         bookings,
         (currBookings, bookingId) => {
-            return currBookings
-                .filter((booking) => booking.id !== bookingId)
-                .sort(
-                    (a, b) =>
-                        new Date(b.created_at).getTime() -
-                        new Date(a.created_at).getTime(),
-                );
+            return currBookings.filter((booking) => booking.id !== bookingId);
         },
+    );
+
+    const sortedBookings = optimisticBookings.sort(
+        (a, b) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
     );
 
     async function handleDelete(bookingId: number) {
@@ -33,7 +32,7 @@ function BookingList({ bookings }: { bookings: BookingsType[] }) {
 
     return (
         <ul className="space-y-6">
-            {optimisticBookings.map((booking) => (
+            {sortedBookings.map((booking) => (
                 <BookingCard
                     onDelete={handleDelete}
                     booking={booking}
