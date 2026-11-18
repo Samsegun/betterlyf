@@ -10,7 +10,7 @@ export default async function Page() {
 
     return (
         <div>
-            <h2 className='font-semibold text-2xl text-accent-400 mb-7'>
+            <h2 className='font-semibold text-2xl text-primary-navy mb-7'>
                 Your bookings
             </h2>
 
@@ -18,7 +18,7 @@ export default async function Page() {
                 <p className='text-lg leading-7'>
                     You have no bookings yet. Check out our{" "}
                     <Link
-                        className='underline text-accent-500'
+                        className='underline text-primary-blue'
                         href='/specialists'>
                         highly rated specialists &rarr;
                     </Link>

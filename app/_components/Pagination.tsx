@@ -82,9 +82,9 @@ function PaginationNumber({
         {
             "rounded-l-md": position === "first" || position === "single",
             "rounded-r-md": position === "last" || position === "single",
-            "z-10 bg-[#24385c]  text-white": isActive,
-            "hover:bg-primary-blue": !isActive && position !== "middle",
-            "text-gray-300": position === "middle",
+            "z-10 bg-primary-blue text-white": isActive,
+            "hover:bg-[#DCEBFF]": !isActive && position !== "middle",
+            "text-[#12356B]": position === "middle",
         }
     );
 
@@ -110,7 +110,7 @@ function PaginationArrow({
         "flex h-10 w-10 items-center justify-center rounded-md border",
         {
             "pointer-events-none": isDisabled,
-            "hover:bg-[#24385c]": !isDisabled,
+            "hover:bg-[#DCEBFF]": !isDisabled,
             "mr-2 md:mr-4": direction === "left",
             "ml-2 md:ml-4": direction === "right",
         }

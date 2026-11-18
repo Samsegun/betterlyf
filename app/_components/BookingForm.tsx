@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useBooking } from "./BookingContext";
-import { SpecialistType } from "../_types";
-import SubmitButton from "./SubmitButton";
-import { createBooking } from "../_lib/actions";
-import { useLoggedInUser } from "./UserContext";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { createBooking } from "../_lib/actions";
+import { SpecialistType } from "../_types";
+import { useBooking } from "./BookingContext";
+import SubmitButton from "./SubmitButton";
+import { useLoggedInUser } from "./UserContext";
 
 function BookingForm({ specialist }: { specialist: SpecialistType }) {
     const [error, setError] = useState<string | undefined | null>(null);
@@ -37,21 +37,21 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
             router.push("/specialists/thankyou");
         } catch (err) {
             setError(
-                err instanceof Error ? err.message : "Something went wrong"
+                err instanceof Error ? err.message : "Something went wrong",
             );
         }
     };
 
     return (
-        <div className='border-t-2 mt-8 lg:mt-0 lg:border-t-0 grid scale-[1.01]'>
-            <div className='px-8 lg:px-16 py-2 flex flex-wrap gap-2 justify-between items-center'>
+        <div className="border-t-2 mt-8 lg:mt-0 lg:border-t-0 grid scale-[1.01]">
+            <div className="px-8 lg:px-16 py-2 flex flex-wrap gap-2 justify-between items-center">
                 <p>Logged in as</p>
 
-                <div className='flex gap-2 md:gap-4 items-center'>
+                <div className="flex gap-2 items-center text-[#12356b]">
                     <img
                         // Important to display google profile images
-                        referrerPolicy='no-referrer'
-                        className='h-8 rounded-full'
+                        referrerPolicy="no-referrer"
+                        className="h-8 rounded-full"
                         src={user?.imageUrl ?? undefined}
                         alt={user?.fullName ?? undefined}
                     />
@@ -61,46 +61,48 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
 
             <form
                 action={handleSubmit}
-                className='py-10 px-6 md:px-8 lg:px-16 md:text-lg flex gap-5 flex-col'>
-                <div className='space-y-2'>
-                    <label htmlFor='fullName'>Full Name</label>
+                className="py-10 px-6 md:px-8 lg:px-16 md:text-lg flex gap-5 flex-col"
+            >
+                <div className="space-y-2">
+                    <label htmlFor="fullName">Full Name</label>
                     <input
-                        name='fullName'
-                        id='fullName'
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
+                        name="fullName"
+                        id="fullName"
+                        className="bg-white text-[#12356B] border border-[#DCEBFF] focus:outline-none focus:ring-2 focus:ring-primary-blue px-5 py-3 w-full shadow-sm rounded-sm"
                         required
                         defaultValue={user?.fullName || ""}
                     />
                 </div>
 
-                <div className='space-y-2'>
-                    <label htmlFor='email'>Email</label>
+                <div className="space-y-2">
+                    <label htmlFor="email">Email</label>
                     <input
-                        name='email'
-                        id='email'
-                        type='email'
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
+                        name="email"
+                        id="email"
+                        type="email"
+                        className="bg-white text-[#12356B] border border-[#DCEBFF] focus:outline-none focus:ring-2 focus:ring-primary-blue px-5 py-3 w-full shadow-sm rounded-sm"
                         required
                         readOnly
                         defaultValue={user?.email || ""}
                     />
                 </div>
 
-                <div className='space-y-2'>
-                    <label htmlFor='timeSlot'>Select Time</label>
+                <div className="space-y-2">
+                    <label htmlFor="timeSlot">Select Time</label>
                     <select
-                        name='timeSlot'
-                        id='timeSlot'
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
-                        required>
-                        <option value='' key=''>
+                        name="timeSlot"
+                        id="timeSlot"
+                        className="bg-white text-[#12356B] border border-[#DCEBFF] focus:outline-none focus:ring-2 focus:ring-primary-blue px-5 py-3 w-full shadow-sm rounded-sm"
+                        required
+                    >
+                        <option value="" key="">
                             Select time slot...
                         </option>
                         {Array.from({ length: 9 }, (_, i) => i + 9).map(
-                            hour => {
+                            (hour) => {
                                 const time24Hour = `${String(hour).padStart(
                                     2,
-                                    "0"
+                                    "0",
                                 )}:00:00`; // "09:00:00", "17:00:00"
                                 const displayTime = `${
                                     hour <= 12 ? hour : hour - 12
@@ -110,45 +112,45 @@ function BookingForm({ specialist }: { specialist: SpecialistType }) {
                                         {displayTime}
                                     </option>
                                 );
-                            }
+                            },
                         )}
                     </select>
                 </div>
 
-                <div className='space-y-2'>
-                    <label htmlFor='phoneNumber'>Phone Number</label>
+                <div className="space-y-2">
+                    <label htmlFor="phoneNumber">Phone Number</label>
                     <input
-                        name='phoneNumber'
-                        id='phoneNumber'
+                        name="phoneNumber"
+                        id="phoneNumber"
                         required
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
-                        placeholder='Enter phone number'
+                        className="bg-white text-[#12356B] border border-[#DCEBFF] focus:outline-none focus:ring-2 focus:ring-primary-blue px-5 py-3 w-full shadow-sm rounded-sm"
+                        placeholder="Enter phone number"
                     />
                 </div>
 
-                <div className='space-y-2'>
-                    <label htmlFor='purpose'>Purpose of Visit?</label>
+                <div className="space-y-2">
+                    <label htmlFor="purpose">Purpose of Visit?</label>
                     <textarea
-                        name='purposeOfVisit'
-                        id='purpose'
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
-                        placeholder='Anything your doctor should know before hand?'
+                        name="purposeOfVisit"
+                        id="purpose"
+                        className="bg-white text-[#12356B] border border-[#DCEBFF] focus:outline-none focus:ring-2 focus:ring-primary-blue px-5 py-3 w-full shadow-sm rounded-sm"
+                        placeholder="Anything your doctor should know before hand?"
                     />
                 </div>
 
                 {error && (
-                    <div className='p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50'>
+                    <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50">
                         {error}
                     </div>
                 )}
 
-                <div className='flex justify-end items-center gap-6'>
+                <div className="flex justify-end items-center gap-6">
                     {!appointmentDay ? (
-                        <p className='text-xl font-medium tracking-wide italic'>
+                        <p className="text-xl font-medium tracking-wide italic">
                             Start by selecting date
                         </p>
                     ) : (
-                        <SubmitButton pendingLabel='Booking...'>
+                        <SubmitButton pendingLabel="Booking...">
                             Book now
                         </SubmitButton>
                     )}

@@ -18,7 +18,7 @@ function SpecialistInfo({ specialist }: { specialist: SpecialistType }) {
     } = specialist;
 
     return (
-        <div className='hero rounded-lg shadow-2xl'>
+        <div className='hero rounded-lg bg-white shadow-2xl'>
             <div className='hero-content flex-col lg:flex-row lg:gap-10 xl:gap-16'>
                 {/* <figure className='relative h-64'> */}
                 {imageUrl && (

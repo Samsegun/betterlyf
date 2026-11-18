@@ -1,6 +1,6 @@
 export function CardSkeleton() {
     return (
-        <div className='card sm:card-side bg-[#24385c] shadow-xl'>
+        <div className='card sm:card-side bg-white text-[#12356B] shadow-xl'>
             <figure className='skeleton h-64 md:h-auto md:w-1/3 '></figure>
 
             {/* Content */}

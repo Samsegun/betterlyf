@@ -26,7 +26,7 @@ export default async function Page(props: {
                 <MoveBackButton />
             </p>
 
-            <h2 className='font-semibold text-2xl text-accent-400 mb-7'>
+            <h2 className='font-semibold text-2xl text-primary-navy mb-7'>
                 Edit Booking #{id}
             </h2>
 

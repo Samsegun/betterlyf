@@ -11,8 +11,9 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    blue: "#0452ce",
-                    lightBlue: "#0664fd",
+                    navy: "#12356B",
+                    blue: "#0875D1",
+                    lightBlue: "#DCEBFF",
                 },
             },
             boxShadow: {

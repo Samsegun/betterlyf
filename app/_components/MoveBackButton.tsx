@@ -8,7 +8,7 @@ function MoveBackButton() {
     return (
         <button
             onClick={moveBack}
-            className='bg-[#24385c]
+            className='bg-[#12356B] text-white
  transition-colors bg-none text-lg p-2 rounded-md duration-150
   hover:bg-primary-blue active:bg-primary-blue'>
             &larr; Back

@@ -2,7 +2,7 @@ import { SignInButton } from "@clerk/nextjs";
 
 function LoginMessage({ specialistName }: { specialistName: string }) {
     return (
-        <div className='grid bg-[#24385c] '>
+        <div className='grid bg-[#DCEBFF] text-[#12356B] '>
             <p className='text-center text-xl py-12 self-center tracking-wide italic'>
                 Please{" "}
                 <SignInButton>

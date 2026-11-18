@@ -8,7 +8,7 @@ export default function Page() {
             </h1>
             <Link
                 href='/profile/bookings'
-                className='underline text-xl md:text-2xl text-accent-500 inline-block'>
+                className='underline text-xl md:text-2xl text-primary-blue inline-block'>
                 Manage your bookings &rarr;
             </Link>
         </div>

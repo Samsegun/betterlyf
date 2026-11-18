@@ -8,7 +8,7 @@ function NotFound() {
             </h1>
 
             <Link href='/specialists' className='flex justify-center'>
-                <button className='bg-primary-blue px-4 py-3 md:px-8 md:py-6 text-white text-lg font-medium hover:bg-primary-lightBlue transition-all'>
+                <button className='bg-primary-blue px-4 py-3 md:px-8 md:py-6 text-white text-lg font-medium hover:bg-primary-navy transition-all'>
                     &larr; Back to all specialists
                 </button>
             </Link>

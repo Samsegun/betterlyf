@@ -14,17 +14,17 @@ const navLinks = [
     {
         name: "Home",
         href: "/profile",
-        icon: <HomeIcon className='h-5 w-5 text-primary-600' />,
+        icon: <HomeIcon className='h-5 w-5 text-primary-blue' />,
     },
     {
         name: "Bookings",
         href: "/profile/bookings",
-        icon: <CalendarDaysIcon className='h-5 w-5 text-primary-600' />,
+        icon: <CalendarDaysIcon className='h-5 w-5 text-primary-blue' />,
     },
     {
         name: "User profile",
         href: "/profile/account",
-        icon: <UserIcon className='h-5 w-5 text-primary-600' />,
+        icon: <UserIcon className='h-5 w-5 text-primary-blue' />,
     },
 ];
 
@@ -45,10 +45,10 @@ function SideNavigation() {
                 {navLinks.map(link => (
                     <li key={link.name}>
                         <Link
-                            className={`profile-nav-item py-3 px-5 lg:hover:bg-[#2c4673] transition-colors flex items-center
+                            className={`profile-nav-item py-3 px-5 lg:hover:bg-[#DCEBFF] transition-colors flex items-center
                                  md:gap-4 font-semibold  ${
                                      pathName === link.href
-                                         ? "bg-[#36558a] lg:rounded-tl-xl lg:rounded-bl-xl"
+                                         ? "bg-[#DCEBFF] lg:rounded-tl-xl lg:rounded-bl-xl"
                                          : ""
                                  }`}
                             href={link.href}>
@@ -62,7 +62,7 @@ function SideNavigation() {
                     <button
                         onClick={() => signOut({ redirectUrl: "/" })}
                         // onClick={handleSignOut}
-                        className='py-3 px-5 hover:bg-[#2c4673] transition-colors flex items-center gap-4 font-semibold w-full'>
+                        className='py-3 px-5 hover:bg-[#DCEBFF] transition-colors flex items-center gap-4 font-semibold w-full'>
                         <ArrowRightEndOnRectangleIcon className='h-5 w-5' />
                         <span>Sign out</span>
                     </button>

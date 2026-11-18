@@ -43,7 +43,7 @@ export function EditBookingForm({
     );
 
     return (
-        <div className='rounded-lg shadow-2xl'>
+        <div className='rounded-lg bg-white shadow-2xl'>
             <EditSelectedDate
                 editedDate={editedDate}
                 appointmentDay={appointmentDay}
@@ -61,7 +61,7 @@ export function EditBookingForm({
                     <select
                         name='timeSlot'
                         id='timeSlot'
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
+                        className='bg-white text-[#12356B] border border-[#DCEBFF] focus:outline-none focus:ring-2 focus:ring-primary-blue px-5 py-3 w-full shadow-sm rounded-sm'
                         required
                         defaultValue={timeSlot}>
                         <option value='' key=''>
@@ -88,7 +88,7 @@ export function EditBookingForm({
                         name='purposeOfVisit'
                         id='purpose'
                         defaultValue={purposeOfVisit ?? ""}
-                        className='bg-[#1b2b47] px-5 py-3 w-full shadow-sm rounded-sm'
+                        className='bg-white text-[#12356B] border border-[#DCEBFF] focus:outline-none focus:ring-2 focus:ring-primary-blue px-5 py-3 w-full shadow-sm rounded-sm'
                         placeholder='Anything your doctor should know before hand?'
                     />
                 </div>

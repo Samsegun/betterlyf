@@ -50,7 +50,7 @@ async function Page(props: { params: Promise<{ id: string }> }) {
                 <SpecialistInfo specialist={specialist} />
             </Suspense>
 
-            <div className='mt-20 rounded-lg shadow-2xl'>
+            <div className='mt-20 rounded-lg bg-white shadow-2xl'>
                 <h2 className='text-2xl md:text-3xl lg:text-4xl font-semibold text-center px-2 md:px-0 mb-10'>
                     Book with Dr.{" "}
                     <span className='capitalize'>{specialist.fullName}</span>{" "}

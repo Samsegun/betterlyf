@@ -16,7 +16,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
             <button
                 className='w-1/2 bg-primary-blue px-4 py-3 md:px-8 md:py-6 text-white text-lg lg:text-xl font-medium
-             hover:bg-primary-lightBlue lg:w-fit transition-all rounded-lg'
+             hover:bg-primary-navy lg:w-fit transition-all rounded-lg'
                 onClick={reset}>
                 Try again
             </button>

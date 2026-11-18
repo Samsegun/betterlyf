@@ -3,12 +3,11 @@
 @tailwind utilities;
 
 .bg {
-    background: rgb(27, 43, 71);
     background: radial-gradient(
-        circle,
-        rgba(27, 43, 71, 1) 0%,
-        rgba(0, 167, 220, 1) 85%,
-        rgba(0, 178, 226, 1) 91%
+        circle at 20% 5%,
+        #dcebff 0%,
+        #f4f8ff 55%,
+        #ffffff 100%
     );
 }
 
@@ -27,8 +26,8 @@
         width: 60px;
         aspect-ratio: 1;
         border-radius: 50%;
-        border: 8px solid #fff;
-        border-right-color: #fff;
+        border: 8px solid #dcebff;
+        border-right-color: #0875d1;
         animation: rotate 1s infinite linear;
     }
 
@@ -37,8 +36,8 @@
         width: 20px;
         aspect-ratio: 1;
         border-radius: 50%;
-        border: 2px solid #fff;
-        border-right-color: transparent;
+        border: 2px solid #dcebff;
+        border-right-color: #0875d1;
         animation: rotate 1s infinite linear;
     }
 
@@ -51,18 +50,18 @@
 
 /* For day picker (starts here) */
 .my-today {
-    color: #222222;
+    color: #12356b;
     font-weight: 800;
 }
 
 .my-selected {
     border-radius: 50%;
-    background-color: #1b2b47;
+    background-color: #0875d1;
     font-size: 1.3rem;
 }
 
 .rdp-nav .rdp-chevron {
-    fill: #fff;
+    fill: #12356b;
 }
 
 /* For day picker (ends here) */

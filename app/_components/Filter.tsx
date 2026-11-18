@@ -42,7 +42,7 @@ function Filter() {
 
     return (
         <div
-            className='font-medium tracking-wide border flex
+            className='font-medium tracking-wide border border-[#DCEBFF] bg-white flex
          flex-wrap gap-2 p-2 md:gap-4 md:p-4 overflow-x-auto whitespace-nowrap'>
             {filters.map(item => (
                 <Button
@@ -60,8 +60,8 @@ function Filter() {
 function Button({ filter, handleFilter, activeFilter, children }: ButtonProps) {
     return (
         <button
-            className={`px-5 py-2 lg:hover:text-gray-200 capitalize ${
-                filter === activeFilter ? "bg-blue text-[#ffcaa5]" : ""
+            className={`px-5 py-2 lg:hover:text-primary-blue capitalize ${
+                filter === activeFilter ? "bg-primary-blue text-white" : ""
             }`}
             onClick={() => handleFilter(filter)}>
             {children}

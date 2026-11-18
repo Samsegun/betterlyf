@@ -41,13 +41,13 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
     const time = format(date, "h:mm a");
 
     return (
-        <div className='flex flex-col md:flex-row border'>
+        <div className='flex flex-col md:flex-row border border-[#DCEBFF] bg-white text-[#12356B] shadow-sm'>
             <div className='relative h-32 aspect-square hidden xl:block'>
                 <Image
                     src={specialists?.imageUrl ?? ""}
                     alt={`Dr. ${specialists?.fullName}`}
                     fill
-                    className='object-cover border-r border-primary-800'
+                    className='object-cover border-r border-[#DCEBFF]'
                 />
             </div>
 
@@ -61,11 +61,11 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
                     </h3>
 
                     {isPast(new Date(appointmentDate)) ? (
-                        <span className='bg-yellow-800 text-yellow-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm'>
+                        <span className='bg-[#DCEBFF] text-[#12356B] h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm'>
                             past
                         </span>
                     ) : (
-                        <span className='bg-green-800 text-green-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm'>
+                        <span className='bg-primary-blue text-white h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm'>
                             upcoming
                         </span>
                     )}
@@ -98,11 +98,11 @@ function BookingCard({ onDelete, booking }: BookingCardProps) {
             </div>
 
             {!isPast(appointmentDate) ? (
-                <div className='flex md:flex-col border-t md:border-t-0 md:border-l h-16 md:h-auto md:w-[100px] bg-[#36558a]'>
+                <div className='flex md:flex-col border-t md:border-t-0 md:border-l h-16 md:h-auto md:w-[100px] bg-primary-blue text-white'>
                     <Link
                         href={`/profile/bookings/edit/${bookingId}`}
                         className='flex items-center justify-center md:justify-normal gap-2 uppercase md:text-xs font-bold border-r
-                             md:border-r-0 md:border-b flex-grow px-3 transition-colors lg:hover:bg-[#2c4673]'>
+                             md:border-r-0 md:border-b flex-grow px-3 transition-colors lg:hover:bg-primary-navy'>
                         <PencilSquareIcon className='h-5 w-5 transition-colors' />
                         <span className='mt-1'>Edit</span>
                     </Link>

@@ -64,7 +64,7 @@ function Navigation() {
                                         </span>
                                         <ActiveLink
                                             href={link.href}
-                                            activeClassName='text-[#ffcaa5]'
+                                            activeClassName='text-[#DCEBFF]'
                                             className=''>
                                             {link.text}
                                         </ActiveLink>
@@ -76,7 +76,7 @@ function Navigation() {
                             ) : (
                                 <ActiveLink
                                     href={link.href}
-                                    activeClassName='text-[#ffcaa5]'
+                                    activeClassName='text-[#DCEBFF]'
                                     className=''>
                                     {link.text}
                                 </ActiveLink>
@@ -117,7 +117,7 @@ function Navigation() {
                                                     <ActiveLink
                                                         href={link.href}
                                                         className='block'
-                                                        activeClassName='bg-gray-50 shadow-xl py-2'>
+                                                        activeClassName='bg-[#DCEBFF] shadow-xl py-2'>
                                                         {link.text}
                                                     </ActiveLink>
 
@@ -148,7 +148,7 @@ function Navigation() {
                                             <ActiveLink
                                                 href={link.href}
                                                 className='block'
-                                                activeClassName='bg-gray-50 shadow-xl py-2'>
+                                                activeClassName='bg-[#DCEBFF] shadow-xl py-2'>
                                                 {link.text}
                                             </ActiveLink>
                                         )}

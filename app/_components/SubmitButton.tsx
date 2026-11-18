@@ -10,7 +10,7 @@ function SubmitButton({ pendingLabel, children }: SubmitButtonType) {
     return (
         <button
             className='bg-primary-blue px-4 py-3 md:px-8 md:py-4 text-white text-lg font-medium
-hover:bg-primary-lightBlue transition-all rounded-md hover:cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300'
+hover:bg-primary-navy transition-all rounded-md hover:cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300'
             disabled={pending}>
             {pending ? pendingLabel : children}
         </button>

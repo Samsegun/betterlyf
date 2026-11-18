@@ -32,7 +32,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body
-                    className={`${roboto.className} antialiased relative bg text-white
+                    className={`${roboto.className} antialiased relative bg text-[#12356B]
                  `}
                 >
                     <div className="min-h-screen flex flex-col">

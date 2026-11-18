@@ -11,7 +11,7 @@ function SpecialistCard({ specialist }: SpecialistCardProps) {
     const { id, fullName, imageUrl, specialization } = specialist;
 
     return (
-        <div className='card overflow-hidden bg-[#24385c] shadow-xl sm:flex sm:flex-row'>
+        <div className='card overflow-hidden bg-white text-[#12356B] shadow-xl sm:flex sm:flex-row'>
             {/* Image Container */}
             <figure
                 className='relative h-48 sm:h-auto sm:w-1/3 
@@ -49,10 +49,10 @@ function SpecialistCard({ specialist }: SpecialistCardProps) {
                 </div>
 
                 {/* Footer */}
-                <div className='card-actions mt-auto justify-end text-[#ffb47e]'>
+                <div className='card-actions mt-auto justify-end text-primary-blue'>
                     <Link
                         href={`/specialists/${id}`}
-                        className='block transition-all hover:text-gray-300'>
+                        className='block transition-all hover:text-primary-navy'>
                         Details & Booking &rarr;
                     </Link>
                 </div>
