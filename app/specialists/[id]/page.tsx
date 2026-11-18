@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import Booking from "@/app/_components/Booking";
+import MoveBackButton from "@/app/_components/MoveBackButton";
 import SpecialistInfo from "@/app/_components/SpecialistInfo";
 import Spinner from "@/app/_components/Spinner";
-import Booking from "@/app/_components/Booking";
 import { getSpecialist, getSpecialists } from "@/app/_lib/data-service";
-import MoveBackButton from "@/app/_components/MoveBackButton";
 
 export async function generateMetadata({
     params,
@@ -27,7 +27,7 @@ export async function generateMetadata({
 export async function generateStaticParams() {
     const specialists = await getSpecialists();
 
-    const ids = specialists.map(specialist => ({
+    const ids = specialists.map((specialist) => ({
         specialistId: String(specialist.id),
     }));
 
@@ -41,8 +41,8 @@ async function Page(props: { params: Promise<{ id: string }> }) {
     if (!specialist) notFound();
 
     return (
-        <div className='py-12 mx-auto max-w-6xl'>
-            <p className='flex mb-4'>
+        <div className="py-12 mx-auto max-w-6xl">
+            <p className="flex mb-4">
                 <MoveBackButton />
             </p>
 
@@ -50,10 +50,10 @@ async function Page(props: { params: Promise<{ id: string }> }) {
                 <SpecialistInfo specialist={specialist} />
             </Suspense>
 
-            <div className='mt-20 rounded-lg bg-white shadow-2xl'>
-                <h2 className='text-2xl md:text-3xl lg:text-4xl font-semibold text-center px-2 md:px-0 mb-10'>
+            <div className="mt-20 rounded-lg bg-white shadow-2xl">
+                <h2 className="pt-4 lg:pt-8 text-2xl md:text-3xl lg:text-4xl font-semibold text-center px-2 md:px-0 mb-10">
                     Book with Dr.{" "}
-                    <span className='capitalize'>{specialist.fullName}</span>{" "}
+                    <span className="capitalize">{specialist.fullName}</span>{" "}
                     Today.
                 </h2>
 
